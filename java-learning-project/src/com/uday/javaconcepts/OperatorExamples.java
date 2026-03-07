@@ -1,4 +1,4 @@
-package com.uday.javatopics;
+package com.uday.javaconcepts;
 
 public class OperatorExamples {
     public static void main(String[] args) {

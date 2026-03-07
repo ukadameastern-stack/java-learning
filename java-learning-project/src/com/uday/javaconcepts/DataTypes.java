@@ -1,4 +1,4 @@
-package com.uday.javatopics;
+package com.uday.javaconcepts;
 
 public class DataTypes {
     static int id = 105;
@@ -7,6 +7,8 @@ public class DataTypes {
     byte a;
     short sh;
     int b;
+    Integer b2 = 10;
+
     float f;
     double d;
     boolean g;
@@ -19,6 +21,7 @@ public class DataTypes {
         byte a = 10; // -128 to 127
         short sh = 32767; // -32,768 to 32,767
         // short sh = 32768; // error: incompatible types: possible lossy conversion from int to short
+        // int b = new Integer(1000); // 'Integer(int)' is deprecated since version 9 and marked for removal
         int b = 1000; // ±2.1 billion
         // Very large (±9 quintillion)
         long c = 9999999999L; // For long value need to provide the L as suffix
@@ -37,6 +40,8 @@ public class DataTypes {
         printWithType(e);
         printWithType(f);
         printWithType(g);
+        DataTypes dt = new DataTypes();
+        dt.defaults();
     }
 
     public static void nonPrimitive() {
@@ -89,19 +94,21 @@ public class DataTypes {
         str = "USKAL";
         System.out.println(str);
 
+        System.out.println("======================" + getB2().getClass());
     }
 
     public static void main(String[] args) {
         System.out.println("In Data type class!");
         primitive();
         nonPrimitive();
-
-
     }
 
     private static void printWithType(Object obj) {
         System.out.println(obj + " → " + obj.getClass().getSimpleName() + " → " + obj.getClass());
-//        System.out.println(obj.getClass());
+    }
+
+    public Integer getB2() {
+        return b2;
     }
 }
 

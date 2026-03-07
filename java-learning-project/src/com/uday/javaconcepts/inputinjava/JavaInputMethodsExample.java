@@ -1,4 +1,4 @@
-package com.uday.javatopics;
+package com.uday.javaconcepts.inputinjava;
 
 import java.util.Scanner;
 import java.io.BufferedReader;

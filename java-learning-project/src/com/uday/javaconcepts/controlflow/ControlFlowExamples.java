@@ -1,4 +1,4 @@
-package com.uday.javatopics;
+package com.uday.javaconcepts.controlflow;
 
 public class ControlFlowExamples {
 

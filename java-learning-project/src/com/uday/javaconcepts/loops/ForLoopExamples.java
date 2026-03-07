@@ -1,4 +1,4 @@
-package com.uday.javatopics;
+package com.uday.javaconcepts.loops;
 
 public class ForLoopExamples {
     public static void main(String[] args) {
