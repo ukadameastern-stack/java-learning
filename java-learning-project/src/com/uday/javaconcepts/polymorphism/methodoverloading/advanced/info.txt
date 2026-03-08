@@ -1,0 +1,29 @@
+Method Overloading Priority Order (Very Important)
+
+Java resolves overloaded methods using this order:
+
+1 Exact Match
+2 Widening
+3 Autoboxing
+4 Varargs
+
+Example priority chain:
+
+int → long   (widening)
+int → Integer   (boxing)
+int → int...   (varargs)
+Real Interview Question Example
+void test(int a)
+void test(long a)
+void test(Integer a)
+void test(int... a)
+
+Calling:
+
+test(10);
+
+Output:
+
+test(int a)
+
+Because exact match has highest priority.

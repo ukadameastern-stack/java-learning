@@ -1,0 +1,147 @@
+Why Use Abstract Methods in an Abstract Class Instead of an Interface
+1. When You Need Shared State (Instance Variables)
+
+Interfaces cannot have normal instance variables (only public static final constants).
+
+Abstract classes can hold fields and shared state.
+
+abstract class Employee {
+
+    String name;   // instance variable
+
+    abstract void calculateSalary();
+
+}
+
+An interface cannot hold such mutable instance data.
+
+Reason:
+If multiple subclasses need common properties, an abstract class is appropriate.
+
+2. When You Need Partial Implementation
+
+Abstract classes allow both implemented methods and abstract methods.
+
+abstract class Vehicle {
+
+    void start() {
+        System.out.println("Vehicle starting...");
+    }
+
+    abstract void drive();
+}
+
+Interfaces historically only declared methods (though modern Java allows default methods, but still limited).
+
+Reason:
+If some behavior is common for all subclasses, place it in an abstract class.
+
+3. When Classes Share a Strong "Is-A" Relationship
+
+Abstract classes represent a base class in inheritance hierarchy.
+
+Example:
+
+Animal
+  ├── Dog
+  ├── Cat
+  └── Lion
+abstract class Animal {
+
+    abstract void makeSound();
+
+}
+
+This models a true hierarchy.
+
+Interfaces instead model capabilities.
+
+Example:
+
+Flyable
+Runnable
+Serializable
+4. When You Need Constructors
+
+Interfaces cannot have constructors.
+
+Abstract classes can.
+
+abstract class Person {
+
+    Person() {
+        System.out.println("Person constructor");
+    }
+
+    abstract void work();
+}
+
+Useful for initializing common fields.
+
+5. When You Want Controlled Inheritance
+
+An abstract class enforces a single inheritance hierarchy.
+
+A class can only extend one abstract class.
+
+class Manager extends Employee
+
+This helps maintain structured design.
+
+When Interfaces Are Better
+
+Use interfaces when you want multiple capabilities.
+
+Example:
+
+interface Flyable {
+    void fly();
+}
+
+interface Swimmable {
+    void swim();
+}
+
+class Duck implements Flyable, Swimmable {
+    public void fly() {}
+    public void swim() {}
+}
+
+A class cannot extend multiple classes, but it can implement multiple interfaces.
+
+Key Design Difference
+Feature	Abstract Class	Interface
+Instance variables	✔ Yes	❌ No
+Constructors	✔ Yes	❌ No
+Multiple inheritance	❌ No	✔ Yes
+Method implementation	✔ Yes	✔ Default/Static only
+Represents	Base class / hierarchy	Capability / behavior
+Real-World Example
+Abstract Class
+abstract class PaymentProcessor {
+
+    void validatePayment() {
+        System.out.println("Validating payment");
+    }
+
+    abstract void processPayment();
+}
+Subclass
+class CreditCardPayment extends PaymentProcessor {
+
+    void processPayment() {
+        System.out.println("Processing credit card payment");
+    }
+}
+
+Here:
+
+Validation logic is shared
+
+Processing logic varies
+
+So an abstract class is ideal.
+
+✅ Short Interview Answer
+
+We use abstract methods inside abstract classes when we want to define a base class with shared state or partial implementation, while forcing subclasses to implement specific behavior. Interfaces are used instead to define capabilities that multiple unrelated classes can implement.
