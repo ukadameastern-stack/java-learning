@@ -1,0 +1,18 @@
+| Modifier  | Same Class | Same Package | Different Package | Different Package Child |
+| --------- | ---------- | ------------ | ----------------- | ----------------------- |
+| private   | ✅          | ❌            | ❌                 | ❌                       |
+| default   | ✅          | ✅            | ❌                 | ❌                       |
+| protected | ✅          | ✅            | ❌                 | ✅                       |
+| public    | ✅          | ✅            | ✅                 | ✅                       |
+
+💡 Important Interview Question
+
+Q: Why is private used?
+A: To achieve Encapsulation and Data Hiding.
+
+Example:
+
+private int salary;
+
+Only accessible through getter/setter methods.
+

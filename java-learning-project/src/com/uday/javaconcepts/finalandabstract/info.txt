@@ -1,0 +1,47 @@
+FAQ 1:
+Can a class be abstract and final?
+
+Answer:
+No.
+abstract → must be inherited
+final → cannot be inherited
+
+FAQ 2:
+Can abstract class contain non-abstract methods?
+
+Yes.
+
+FAQ 3:
+Can abstract class have constructors?
+
+Yes.
+
+FAQ 4:
+Can final class have abstract method?
+
+No, because abstract method must be overridden.
+
+Key Concept Summary:
+
+| Concept         | Meaning              |
+| --------------- | -------------------- |
+| final class     | Cannot be inherited  |
+| final method    | Cannot be overridden |
+| final variable  | Value cannot change  |
+| abstract class  | Must be extended     |
+| abstract method | Must be implemented  |
+
+Important Interview Rule
+
+This combination is invalid:
+
+    final abstract class Test {
+    }
+
+Reason:
+
+abstract → requires inheritance
+final → prevents inheritance
+
+So Java does not allow it.
+

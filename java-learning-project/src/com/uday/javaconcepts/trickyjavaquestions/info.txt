@@ -1,0 +1,11 @@
+Very Important Java Interview Rules
+
+| Rule                 | Explanation                      |
+| -------------------- | -------------------------------- |
+| Static blocks        | Execute before `main()`          |
+| Constructor chaining | `this()` must be first statement |
+| Method resolution    | Compile time for overloading     |
+| Runtime polymorphism | Used in overriding               |
+| Interface variables  | Always `public static final`     | // CONST
+| Final reference      | Object state can change          |
+| Abstract class       | Cannot instantiate               |

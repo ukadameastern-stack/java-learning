@@ -27,3 +27,36 @@ Output:
 test(int a)
 
 Because exact match has highest priority.
+
+---------------------------------------------------------------
+
+Java does not support default values for function (method) parameters like some other languages (e.g., Python, C++, JavaScript).
+
+In Java, every argument must be explicitly passed when calling a method.
+
+Example (Invalid in Java ❌)
+    public void greet(String name = "Guest") {   // ❌ Not allowed
+        System.out.println("Hello " + name);
+    }
+
+Java will give a compile-time error because parameter initialization is not allowed in the method signature.
+
+How Java Handles This (Method Overloading)
+
+Java typically solves this using method overloading.
+
+---------------------------------------------------------------
+
+Why Java Does Not Support Default Parameters
+
+Java designers preferred method overloading instead of default arguments to:
+
+keep method calls explicit
+
+avoid ambiguity in method resolution
+
+maintain backward compatibility
+
+Real-world Example (like Java libraries)
+
+For example in classes like String or Math, Java often provides multiple overloaded methods instead of default parameters.

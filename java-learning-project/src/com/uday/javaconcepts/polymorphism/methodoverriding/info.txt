@@ -1,0 +1,23 @@
+Method Overriding Rules
+-----------------------------------------------------
+| Rule            | Explanation                     |
+| --------------- | ------------------------------- |
+| Method name     | Must be same                    |
+| Parameters      | Must be same                    |
+| Return type     | Same or covariant               |
+| Access modifier | Cannot be more restrictive      |
+| final method    | Cannot override                 |
+| static method   | Cannot override (method hiding) |
+| private method  | Cannot override                 |
+-----------------------------------------------------
+
+Overloading vs Overriding
+-----------------------------------------------------
+| Feature              | Overloading  | Overriding |
+| -------------------- | ------------ | ---------- |
+| Polymorphism type    | Compile-time | Runtime    |
+| Method name          | Same         | Same       |
+| Parameters           | Different    | Same       |
+| Inheritance required | No           | Yes        |
+-----------------------------------------------------
+

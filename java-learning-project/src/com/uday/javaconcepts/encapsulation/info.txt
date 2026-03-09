@@ -1,0 +1,27 @@
+1. What is Encapsulation / Data Binding in Java
+
+Encapsulation means wrapping data (variables) and code (methods) together into a single unit (class).
+
+It is also called Data Hiding.
+
+In encapsulation:
+
+    Variables → private
+
+    Access → public getter/setter methods
+
+This prevents direct access to variables and protects the data.
+
+Real-World Example
+
+Think of a Bank Account.
+
+You cannot directly change the balance.
+
+Instead you use:
+
+    deposit()
+    withdraw()
+    checkBalance()
+
+So the data is protected.
