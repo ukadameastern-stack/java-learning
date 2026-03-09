@@ -1,0 +1,7 @@
+| Concept          | Explanation                       |
+| ---------------- | --------------------------------- |
+| Default Method   | Method with body inside interface |
+| Introduced       | Java 8                            |
+| Purpose          | Backward compatibility            |
+| Static Method    | Belongs to interface, not object  |
+| Default Conflict | Class must override method        |

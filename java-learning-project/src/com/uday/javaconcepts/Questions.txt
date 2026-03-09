@@ -1,0 +1,119 @@
+
+Java Questions and Answers
+Generated on: 2026-03-09 14:30
+
+--------------------------------------------------
+Object Class
+--------------------------------------------------
+
+1. Can we override toString() in our class?
+-> Yes.
+   The toString() method is defined in the Object class and can be overridden
+   to provide a meaningful string representation of the object.
+
+Example:
+@Override
+public String toString() {
+    return "Student{id=" + id + ", name='" + name + "'}";
+}
+
+--------------------------------------------------
+Cloning and hashCode
+--------------------------------------------------
+
+2. Why do two cloned objects sometimes have the same hashCode?
+
+Example:
+Student s1 = new Student(1, "Uday");
+Student s2 = (Student) s1.clone();
+
+System.out.println(s1.hashCode());
+System.out.println(s2.hashCode());
+
+Answer:
+If the hashCode() method is overridden to generate a hash based on object
+fields (like id and name), then two objects with the same values will
+produce the same hashCode.
+
+Example implementation:
+
+@Override
+public int hashCode() {
+    return Objects.hash(id, name);
+}
+
+Important rule in Java:
+If two objects are equal according to equals(), they must have the same hashCode.
+
+But the reverse is not always true:
+Two objects can have the same hashCode but still be different objects in memory.
+
+--------------------------------------------------
+this vs super
+--------------------------------------------------
+
+3. What is the difference between 'this' and 'super'?
+
+this:
+-> Refers to the current class object.
+
+Uses:
+- Access current class variables
+- Call current class methods
+- Call another constructor in the same class
+
+Example:
+this.id = id;
+
+
+super:
+-> Refers to the immediate parent class object.
+
+Uses:
+- Access parent class variables
+- Call parent class methods
+- Call parent class constructor
+
+Example:
+super.display();
+
+
+Difference:
+
+this  -> current class reference
+super -> parent class reference
+
+--------------------------------------------------
+Why Java uses 'super' instead of 'parent'
+--------------------------------------------------
+
+4. Why does Java use 'super' instead of 'parent'?
+
+Because 'super' is a reserved keyword defined by the Java language
+to refer to the superclass.
+
+'parent' is not a keyword in Java. If we tried:
+
+parent.display();
+
+The compiler would give an error because 'parent' is treated as a normal variable name.
+
+--------------------------------------------------
+const keyword
+--------------------------------------------------
+
+5. Why is 'const' not used in Java?
+
+Java reserves the keyword 'const', but it is not implemented.
+Instead, Java uses the 'final' keyword to create constants.
+
+Example:
+
+final int MAX_SIZE = 100;
+
+Meaning:
+The value cannot be changed after initialization.
+
+--------------------------------------------------
+End of Document
+--------------------------------------------------

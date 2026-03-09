@@ -1,0 +1,8 @@
+| Concept              | Meaning                |
+| -------------------- | ---------------------- |
+| Upcasting            | Child → Parent         |
+| Downcasting          | Parent → Child         |
+| Upcasting Type       | Automatic              |
+| Downcasting Type     | Manual                 |
+| Runtime Polymorphism | Achieved via Upcasting |
+| Safe Downcasting     | Use `instanceof`       |

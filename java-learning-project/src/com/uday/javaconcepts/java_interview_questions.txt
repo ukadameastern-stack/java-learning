@@ -1,0 +1,228 @@
+Java Interview Questions Based on Project Topics
+
+Generated: 2026-03-09 14:35
+
+Object Class
+
+1.  What is the root class of all classes in Java? Answer: Object class.
+    Every class implicitly extends it.
+
+2.  Can we override toString()? Answer: Yes. It is commonly overridden
+    to provide a readable representation of an object.
+
+3.  What is the contract between equals() and hashCode()? Answer: If two
+    objects are equal according to equals(), they must return the same
+    hashCode().
+
+4.  What is cloning? Answer: Cloning creates a copy of an object using
+    the clone() method from the Object class.
+
+------------------------------------------------------------------------
+
+Access Modifiers
+
+1.  What are the access modifiers in Java? Answer: private, default,
+    protected, public.
+
+2.  Difference between protected and default? Answer: protected allows
+    access in subclasses even in different packages, while default is
+    package‑private.
+
+3.  Which modifier provides the highest restriction? Answer: private.
+
+------------------------------------------------------------------------
+
+Encapsulation
+
+1.  What is encapsulation? Answer: Wrapping data and methods into a
+    single unit and restricting direct access to fields.
+
+2.  How is encapsulation achieved in Java? Answer:
+
+-   Private fields
+-   Public getters and setters
+
+------------------------------------------------------------------------
+
+Inheritance
+
+1.  What is inheritance? Answer: Mechanism where one class acquires
+    properties of another.
+
+2.  Types of inheritance supported in Java? Answer:
+
+-   Single
+-   Multilevel
+-   Hierarchical
+
+3.  Why multiple inheritance is not supported with classes? Answer: To
+    avoid ambiguity (Diamond Problem).
+
+------------------------------------------------------------------------
+
+Polymorphism
+
+Method Overloading
+
+1.  What is method overloading? Answer: Multiple methods with the same
+    name but different parameters.
+
+2.  Can we overload methods by changing return type only? Answer: No.
+
+Method Overriding
+
+1.  What is method overriding? Answer: Redefining a parent class method
+    in a child class.
+
+2.  When does runtime polymorphism occur? Answer: When overridden
+    methods are resolved at runtime.
+
+------------------------------------------------------------------------
+
+this and super
+
+1.  What does this refer to? Answer: Current class object reference.
+
+2.  What does super refer to? Answer: Immediate parent class reference.
+
+3.  Can we call both this() and super() in the same constructor? Answer:
+    No. Only one can be the first statement.
+
+------------------------------------------------------------------------
+
+Constructors
+
+1.  What is a constructor? Answer: Special method used to initialize
+    objects.
+
+2.  Types of constructors? Answer:
+
+-   Default constructor
+-   Parameterized constructor
+
+3.  What is constructor chaining? Answer: Calling one constructor from
+    another using this() or super().
+
+------------------------------------------------------------------------
+
+Final Keyword
+
+1.  What happens when a variable is declared final? Answer: Its value
+    cannot be changed once assigned.
+
+2.  Can a final class be inherited? Answer: No.
+
+3.  Can a final method be overridden? Answer: No.
+
+------------------------------------------------------------------------
+
+Interfaces
+
+1.  What is an interface? Answer: A blueprint that contains abstract
+    methods.
+
+2.  Can interfaces contain methods with implementation? Answer: Yes,
+    using default and static methods.
+
+3.  What is a functional interface? Answer: Interface with exactly one
+    abstract method.
+
+------------------------------------------------------------------------
+
+Abstraction
+
+1.  What is abstraction? Answer: Hiding implementation details and
+    exposing only functionality.
+
+2.  Difference between abstract class and interface? Answer:
+
+-   Abstract class can have instance variables.
+-   Interface mainly defines behavior.
+
+------------------------------------------------------------------------
+
+Arrays
+
+1.  What is an array? Answer: A fixed-size data structure storing
+    elements of the same type.
+
+2.  Difference between array and ArrayList? Answer:
+
+-   Array size is fixed
+-   ArrayList size is dynamic
+
+------------------------------------------------------------------------
+
+Control Flow & Loops
+
+1.  What are control flow statements? Answer:
+
+-   if
+-   switch
+-   loops
+
+2.  Types of loops? Answer:
+
+-   for
+-   while
+-   do-while
+
+------------------------------------------------------------------------
+
+Branching Statements
+
+1.  What are branching statements? Answer:
+
+-   break
+-   continue
+-   return
+
+------------------------------------------------------------------------
+
+Wrapper Classes
+
+1.  What are wrapper classes? Answer: Classes that convert primitive
+    types into objects.
+
+Examples: - Integer - Double - Boolean
+
+2.  Why wrapper classes are needed? Answer: Required for collections and
+    object operations.
+
+------------------------------------------------------------------------
+
+Strings
+
+1.  Difference between String and StringBuilder? Answer:
+
+-   String is immutable
+-   StringBuilder is mutable
+
+2.  What is String pool? Answer: A special memory area in JVM for
+    storing string literals.
+
+------------------------------------------------------------------------
+
+POJO vs DTO
+
+1.  What is POJO? Answer: Plain Old Java Object with fields and
+    getters/setters.
+
+2.  What is DTO? Answer: Data Transfer Object used to transfer data
+    between layers.
+
+------------------------------------------------------------------------
+
+Tricky Java Questions
+
+1.  Can we create an object of an abstract class? Answer: No.
+
+2.  When are static blocks executed? Answer: When the class is loaded
+    into memory.
+
+3.  Can a final reference variable change object data? Answer: Yes. The
+    reference cannot change, but object data can.
+
+------------------------------------------------------------------------
+
+End of Document

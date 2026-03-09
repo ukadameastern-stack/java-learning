@@ -8,9 +8,11 @@ POJO CLASS IN JAVA
 POJO = Plain Old Java Object
 
 It is a simple Java class used to represent DATA.
+One of the example for Encapsulation.
+POJO class is a kind of Design pattern.
 
 Characteristics:
-1. Private variables
+1. Private variables only
 2. Getter and Setter methods
 3. Public constructor
 4. No dependency on frameworks
@@ -28,6 +30,9 @@ POJO classes are commonly used in:
 | Logic   | May contain logic      | Usually no logic             |
 | Usage   | Model / Entity classes | API response/request         |
 
+
+Design pattern: Represents a solution or a template for a solution.
+    Design pattern provides steps to achieve a common problem/Or a better solution in real time application.
 */
 
 public class StudentPojo {
@@ -70,7 +75,8 @@ public class StudentPojo {
 
     // Setter Methods
     /*
-        Setter Method
+        Setter Method should be public.
+        Return type should be void.
         Used to modify/update the value of a private variable.
      */
 

@@ -1,4 +1,4 @@
-package com.uday.javaconcepts.interfaceconcepts;
+package com.uday.javaconcepts.interfaces;
 
 interface Animal {
     void sound();   // method declaration
