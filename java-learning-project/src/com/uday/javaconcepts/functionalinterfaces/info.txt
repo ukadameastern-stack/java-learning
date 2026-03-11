@@ -1,0 +1,47 @@
+Key Concepts Summary
+Functional Interface
+
+Rules:
+
+    1 abstract method
+    any number of default methods
+    any number of static methods
+
+Example
+
+    Runnable
+    Callable
+    Comparator
+    Predicate
+
+Lambda Expression Benefits:
+    Less code
+    No anonymous class
+    Functional programming support
+    Better readability
+    Works well with Streams API
+
+Real Industry Usage
+
+Lambda expressions are heavily used in:
+
+    Spring Framework
+    Hibernate
+    Apache Kafka
+
+especially with:
+
+    Streams
+    Collections
+    Async programming
+    Event handling
+
+ Quick Comparison Table
+----------------------------------------------
+ | Interface     | Input | Output | Method   |
+ | ------------- | ----- | ------ | -------- |
+ | Predicate<T>  | ✔     | ✔      | test()   |
+ | Function<T,R> | ✔     | ✔      | apply()  |
+ | Consumer<T>   | ✔     | ❌      | accept() |
+ | Supplier<T>   | ❌     | ✔      | get()    |
+ ----------------------------------------------

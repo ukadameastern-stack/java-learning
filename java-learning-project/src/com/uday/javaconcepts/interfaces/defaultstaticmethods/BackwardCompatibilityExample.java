@@ -5,8 +5,8 @@ package com.uday.javaconcepts.interfaces.defaultstaticmethods;
 BACKWARD COMPATIBILITY IN JAVA INTERFACES
 =========================================================
 
-Before Java 8
--------------
+Before Java 8 (Java 7 and earlier)
+----------------------------------
 Interfaces could only contain:
 
 1. Abstract methods

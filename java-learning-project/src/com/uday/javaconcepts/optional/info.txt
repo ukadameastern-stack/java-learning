@@ -1,0 +1,13 @@
+Key Methods Summary
+
+| Method          | Purpose                              |
+| --------------- | ------------------------------------ |
+| `of()`          | Creates Optional with non-null value |
+| `ofNullable()`  | Allows null values                   |
+| `empty()`       | Creates empty Optional               |
+| `isPresent()`   | Checks value existence               |
+| `orElse()`      | Returns default value                |
+| `orElseGet()`   | Generates value using Supplier       |
+| `orElseThrow()` | Throws exception                     |
+| `map()`         | Transforms value                     |
+| `filter()`      | Filters value                        |

@@ -1,0 +1,200 @@
+Lifecycle Visualization
+    Source Code
+         |
+         |  SOURCE
+         v
+    Compilation
+         |
+         |  CLASS
+         v
+    .class File
+         |
+         |  RUNTIME
+         v
+    JVM Runtime
+
+Quick Comparison Table
+
+------------------------------------------------------------------------------------
+| Retention Policy | Available in Source | Stored in .class | Available at Runtime |
+| ---------------- | ------------------- | ---------------- | -------------------- |
+| SOURCE           | ✔                   | ❌                | ❌                    |
+| CLASS            | ✔                   | ✔                | ❌                    |
+| RUNTIME          | ✔                   | ✔                | ✔                    |
+------------------------------------------------------------------------------------
+
+The real purpose of this pattern is metadata-driven behavior.
+An annotation like:
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    @interface RuntimeInfo {
+        String author();
+    }
+
+adds structured metadata to a class that can be read at runtime via reflection.
+Frameworks or infrastructure code can inspect that metadata
+and change behavior without modifying the class itself.
+
+What This Code Actually Means
+    @RuntimeInfo(author = "Uday")
+    class RuntimeExample { }
+
+This attaches metadata to the class:
+
+RuntimeExample
+    author = "Uday"
+
+At runtime, another component can read it:
+
+    Class<?> cls = RuntimeExample.class;
+
+    RuntimeInfo info = cls.getAnnotation(RuntimeInfo.class);
+    System.out.println(info.author());
+
+Output
+
+Uday
+
+So the annotation becomes configuration embedded in code.
+
+----------------------------------------------------
+Why RetentionPolicy.RUNTIME Is Required?
+----------------------------------------------------
+
+Without RUNTIME, the JVM cannot read the annotation using reflection.
+
+| Retention | Can frameworks read it? |
+| --------- | ----------------------- |
+| SOURCE    | ❌ No                    |
+| CLASS     | ❌ No                    |
+| RUNTIME   | ✔ Yes                   |
+
+Frameworks like Spring Framework rely heavily on this.
+
+----------------------------------------------------
+Real-Life Example 1 — Spring Dependency Injection
+----------------------------------------------------
+
+In Spring Framework:
+
+    @Service
+    class UserService { }
+
+Spring scans classes:
+
+    Find classes with @Service
+    Create object
+    Register in container
+    Inject where needed
+
+Internally it does something like:
+
+    if (clazz.isAnnotationPresent(Service.class)) {
+        createBean(clazz);
+    }
+
+The annotation controls application behavior.
+
+----------------------------------------------------
+Real-Life Example 2 — Database Mapping (ORM)
+----------------------------------------------------
+In Hibernate:
+
+    @Entity
+    class User {
+        @Id
+        int id;
+    }
+
+Hibernate reads the annotation at runtime and automatically maps:
+
+Java Class  → Database Table
+User        → user table
+
+Without annotations you would need XML configuration.
+
+----------------------------------------------------
+Real-Life Example 3 — Testing Framework
+----------------------------------------------------
+
+In JUnit:
+
+@Test
+void testLogin() { }
+
+JUnit scans classes and runs methods that have @Test.
+
+Internally:
+
+    for(Method m : clazz.getMethods()) {
+        if(m.isAnnotationPresent(Test.class)) {
+            runTest(m);
+        }
+    }
+
+----------------------------------------------------
+Real-Life Example 4 — Security / Role Checking
+----------------------------------------------------
+
+Example custom annotation:
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @interface RoleAllowed {
+        String value();
+    }
+
+Usage:
+
+    @RoleAllowed("ADMIN")
+    void deleteUser() { }
+
+Runtime security check:
+
+    if(userRole.equals(annotation.value())) {
+        allow();
+    }
+
+This is common in enterprise APIs.
+
+Why Developers Prefer Annotations
+
+Without annotations you would write something like:
+
+    config.xml
+    service-config.xml
+    mapping.xml
+    test-config.xml
+
+Annotations move that configuration directly into the code.
+
+Benefits:
+    Cleaner configuration
+    Less XML
+    Easier maintenance
+    More readable code
+    Enables framework automation
+
+Simple Mental Model
+
+Think of annotations as labels attached to code.
+
+Example:
+
+Class
+  |
+  └── Label: @Service
+  └── Label: @Entity
+  └── Label: @Test
+
+Frameworks scan these labels and perform actions automatically.
+
+Short Interview Answer
+
+Why do we need runtime annotations?
+
+Runtime annotations allow frameworks and applications to read metadata from
+classes using reflection and modify behavior dynamically,
+enabling features like dependency injection,
+ORM mapping, testing, and security.
