@@ -1,0 +1,158 @@
+# THROW vs THROWS IN JAVA
+
+Language: Java
+
+Both "throw" and "throws" are used in Exception Handling,
+but they serve different purposes.
+
+---
+
+1. THROW
+
+---
+
+Definition:
+    The "throw" keyword is used to explicitly throw an exception
+    object from a method or block of code.
+
+Key Points:
+
+    * Used inside method body
+    * Used to throw a single exception
+    * Followed by an Exception object
+
+Syntax
+
+    throw new ExceptionType("message");
+
+Example
+
+    public class ThrowExample {
+        public static void main(String[] args) {
+
+            int age = 15;
+
+            if (age < 18) {
+                throw new ArithmeticException("Not eligible to vote");
+            }
+
+            System.out.println("Eligible");
+        }
+
+    }
+
+Output
+
+    Exception in thread "main"
+    java.lang.ArithmeticException: Not eligible to vote
+
+Explanation
+
+    The program manually throws an exception when age is less than 18.
+
+---
+
+2. THROWS
+
+---
+
+Definition:
+    The "throws" keyword is used in the method declaration
+    to indicate that the method may throw an exception.
+
+    It passes the responsibility of handling the exception
+    to the calling method.
+
+Syntax
+
+    returnType methodName() throws ExceptionType
+
+Example
+
+    import java.io.*;
+
+    public class ThrowsExample {
+
+        public static void readFile() throws IOException {
+
+            FileReader file = new FileReader("test.txt");
+
+        }
+
+        public static void main(String[] args) {
+
+            try{
+                readFile();
+            }
+            catch(IOException e){
+                System.out.println("File not found");
+            }
+
+        }
+
+    }
+
+Output
+
+    File not found
+
+---
+
+3. DIFFERENCE BETWEEN THROW AND THROWS
+
+---
+
+    ## Feature        throw                         throws
+
+    Purpose        Used to throw exception       Declares exception
+    Location       Inside method body            Method signature
+    Exceptions     One exception at a time       Multiple allowed
+    Responsibility Throws exception              Passes responsibility
+
+Example with multiple exceptions
+
+    public void test() throws IOException, SQLException
+
+---
+
+4. COMBINED EXAMPLE
+
+---
+
+    public class ThrowThrowsExample {
+
+        static void checkAge(int age) throws Exception {
+
+            if(age < 18){
+                throw new Exception("Age must be 18+");
+            }
+
+            System.out.println("Eligible");
+        }
+
+        public static void main(String[] args) {
+
+            try{
+                checkAge(16);
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+    }
+
+Output
+
+    Age must be 18+
+
+---
+
+5. INTERVIEW ONE LINE ANSWER
+
+---
+
+    "throw" is used to explicitly throw an exception,
+    while "throws" is used in the method declaration to
+    indicate that a method may throw exceptions.
