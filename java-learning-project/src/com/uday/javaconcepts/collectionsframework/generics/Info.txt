@@ -1,0 +1,271 @@
+Generics in Java (Java 21)
+
+    Generics allow you to write classes, interfaces, and methods
+    that work with different data types while maintaining compile-time type safety.
+
+They were introduced in Java 5 and are still a core feature in Java 21.
+Java 21 does not fundamentally change generics, but they remain essential in APIs
+like the Java Collections Framework.
+
+We should not use primitives as part of Generics declarations,
+rather than primitives use respective Wrapper classes.
+Why? collection always dealing with Objects.
+
+LHS is mandatory to define generics declarations, RHS is in Optional.
+    ArrayList<String> names = new ArrayList<String>();
+    ArrayList<String> names = new ArrayList<>(); // RSH is in Optional.
+
+------------------------------------------
+1. Why Generics Are Needed
+------------------------------------------
+
+    Before generics, collections stored Object types.
+
+Without Generics (Old Java):
+
+    import java.util.ArrayList;
+
+    public class WithoutGenerics {
+        public static void main(String[] args) {
+
+            ArrayList list = new ArrayList();
+
+            list.add("Java");
+            list.add(10);   // allowed
+
+            String s = (String) list.get(0);
+
+            System.out.println(s);
+        }
+    }
+
+Problems:
+
+    | Issue          | Explanation                   |
+    | -------------- | ----------------------------- |
+    | No Type Safety | Any object can be added       |
+    | Runtime Errors | `ClassCastException` possible |
+    | Manual Casting | Required                      |
+
+-------------------------------------------
+Type Erasure (Important Interview Topic)
+-------------------------------------------
+    Java generics use Type Erasure.
+
+Meaning:
+
+    Generic type information is removed at runtime
+
+Example:
+
+    ArrayList<String>
+    ArrayList<Integer>
+
+Both become:
+
+    ArrayList
+
+    during runtime.
+
+Reason:
+
+    Maintain backward compatibility with older Java versions.
+
+-------------------------------------------
+Common Generic Type Parameters
+-------------------------------------------
+
+    | Symbol | Meaning |
+    | ------ | ------- |
+    | T      | Type    |
+    | E      | Element |
+    | K      | Key     |
+    | V      | Value   |
+    | N      | Number  |
+
+Examples:
+
+    List<E>
+    Map<K,V>
+
+-------------------------------------------
+Summary Table
+-------------------------------------------
+
+    | Feature            | Description                   |
+    | ------------------ | ----------------------------- |
+    | Generics           | Type-safe classes and methods |
+    | Introduced         | Java 5                        |
+    | Used In            | Collections Framework         |
+    | Compile Time Check | Yes                           |
+    | Runtime            | Uses Type Erasure             |
+
+-------------------------------------------
+Simple Definition
+-------------------------------------------
+
+    Generics allow classes and methods to work with different
+    data types while providing compile-time type safety.
+
+--------------------------------------------
+
+/*
+=========================================================
+GENERIC TYPE PARAMETERS COMPLETE EXAMPLE
+=========================================================
+
+This example demonstrates common generic type parameters.
+
+    T → Type
+    E → Element
+    K → Key
+    V → Value
+    N → Number
+
+Concepts Covered
+----------------
+    1 Generic Class
+    2 Generic Method
+    3 Bounded Generics
+    4 Generics with Collections
+    5 Multiple Type Parameters
+*/
+
+
+/*
+Generic Class using T (Type)
+*/
+class Box2<T> {
+
+    private T value;
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+}
+
+
+/*
+Generic Class with Multiple Type Parameters
+K → Key
+V → Value
+*/
+class KeyValuePair<K, V> {
+
+    private K key;
+    private V value;
+
+    public KeyValuePair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public void print() {
+        System.out.println(key + " : " + value);
+    }
+}
+
+
+/*
+Bounded Generic Class
+N → Number
+*/
+class Calculator2<N extends Number> {
+
+    private N number;
+
+    public Calculator2(N number) {
+        this.number = number;
+    }
+
+    public double square() {
+        return number.doubleValue() * number.doubleValue();
+    }
+}
+
+
+/*
+Main Class Demonstrating All Generic Type Parameters
+*/
+public class GenericTypeParametersExample {
+
+    /*
+    Generic Method using T
+    */
+    public static <T> void printValue(T value) {
+        System.out.println("Value: " + value);
+    }
+
+    public static void main(String[] args) {
+
+        // T → Type
+        Box2<String> box = new Box2<>();
+        box.setValue("Hello Generics");
+        System.out.println("Box Value: " + box.getValue());
+
+
+        // K → Key, V → Value
+        KeyValuePair<Integer, String> pair =
+                new KeyValuePair<>(1, "Java");
+
+        pair.print();
+
+
+        // N → Number
+        Calculator2<Integer> calc =
+                new Calculator2<>(5);
+
+        System.out.println("Square: " + calc.square());
+
+
+        // E → Element (Collection)
+        List<String> list = new ArrayList<>();
+
+        list.add("Java");
+        list.add("Python");
+        list.add("Go");
+
+        for(String lang : list) {
+            System.out.println("Language: " + lang);
+        }
+
+
+        // Map with K and V
+        Map<Integer,String> map = new HashMap<>();
+
+        map.put(101,"Uday");
+        map.put(102,"Rahul");
+
+        System.out.println("Map Data: " + map);
+
+
+        // Generic Method
+        printValue("Generic Method Example");
+        printValue(100);
+        printValue(3.14);
+    }
+}
+
+
+/*
+=========================================================
+OUTPUT
+=========================================================
+
+Box2 Value: Hello Generics
+1 : Java
+Square: 25.0
+Language: Java
+Language: Python
+Language: Go
+Map Data: {101=Uday, 102=Rahul}
+Value: Generic Method Example
+Value: 100
+Value: 3.14
+
+=========================================================
+*/

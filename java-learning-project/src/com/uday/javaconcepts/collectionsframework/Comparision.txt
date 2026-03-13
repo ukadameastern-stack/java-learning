@@ -1,0 +1,69 @@
+1. Core Collection Interfaces Features
+
+| Interface | Order Maintained    | Duplicates Allowed    | Null Allowed           | Access Type | Example Classes           |
+| --------- | ------------------- | --------------------- | ---------------------- | ----------- | ------------------------- |
+| List      | Yes                 | Yes                   | Yes                    | Index-based | ArrayList, LinkedList     |
+| Set       | No (generally)      | No                    | One null allowed       | No index    | HashSet, TreeSet          |
+| Queue     | FIFO order          | Yes                   | Usually not allowed    | Head/Tail   | LinkedList, PriorityQueue |
+| Map       | Key-value structure | Keys: No, Values: Yes | One null key (HashMap) | Key-based   | HashMap, TreeMap          |
+
+2. List Implementations
+
+| Class      | Order | Duplicates | Null Allowed | Performance             | Internal Structure |
+| ---------- | ----- | ---------- | ------------ | ----------------------- | ------------------ |
+| ArrayList  | Yes   | Yes        | Yes          | Fast random access      | Dynamic Array      |
+| LinkedList | Yes   | Yes        | Yes          | Fast insertion/deletion | Doubly Linked List |
+| Vector     | Yes   | Yes        | Yes          | Slower (synchronized)   | Dynamic Array      |
+| Stack      | Yes   | Yes        | Yes          | LIFO operations         | Extends Vector     |
+
+3. Set Implementations
+
+| Class         | Order  | Duplicates | Null Allowed | Internal Structure       | Special Feature           |
+| ------------- | ------ | ---------- | ------------ | ------------------------ | ------------------------- |
+| HashSet       | No     | No         | One null     | Hash Table               | Fast lookup               |
+| LinkedHashSet | Yes    | No         | One null     | Hash Table + Linked List | Maintains insertion order |
+| TreeSet       | Sorted | No         | No           | Red-Black Tree           | Automatic sorting         |
+
+4. Queue Implementations
+
+| Class         | Order Type     | Duplicates | Null Allowed | Structure       |
+| ------------- | -------------- | ---------- | ------------ | --------------- |
+| LinkedList    | FIFO           | Yes        | No           | Linked List     |
+| PriorityQueue | Priority-based | Yes        | No           | Heap            |
+| ArrayDeque    | FIFO / LIFO    | Yes        | No           | Resizable Array |
+
+5. Map Implementations
+
+| Class         | Order  | Null Key | Null Values | Internal Structure       | Special Feature           |
+| ------------- | ------ | -------- | ----------- | ------------------------ | ------------------------- |
+| HashMap       | No     | One      | Multiple    | Hash Table               | Fastest map               |
+| LinkedHashMap | Yes    | One      | Multiple    | Hash Table + Linked List | Maintains insertion order |
+| TreeMap       | Sorted | No       | Yes         | Red-Black Tree           | Sorted keys               |
+| Hashtable     | No     | No       | No          | Hash Table               | Thread-safe               |
+
+6. Key Differences Summary
+
+| Feature            | List       | Set            | Queue     | Map                       |
+| ------------------ | ---------- | -------------- | --------- | ------------------------- |
+| Stores             | Objects    | Unique Objects | Objects   | Key-Value pairs           |
+| Order              | Maintained | Not guaranteed | FIFO      | Depends on implementation |
+| Duplicate Elements | Allowed    | Not allowed    | Allowed   | Keys not allowed          |
+| Access             | Index      | No index       | Head/Tail | Key                       |
+
+7. Most Used Classes in Real Projects
+
+| Use Case                    | Preferred Class |
+| --------------------------- | --------------- |
+| Dynamic list                | ArrayList       |
+| Frequent insertion/deletion | LinkedList      |
+| Unique elements             | HashSet         |
+| Sorted elements             | TreeSet         |
+| Key-value storage           | HashMap         |
+
+Simple Interview Rule
+
+    ArrayList → Fast read
+    LinkedList → Fast insert/delete
+    HashSet → Unique elements
+    TreeSet → Sorted elements
+    HashMap → Fast key-value storage

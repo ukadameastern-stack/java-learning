@@ -1,0 +1,141 @@
+What is the diff between int[] or ArrayList or API?
+
+Your question mixes three different concepts in Java: int[], ArrayList, and API.
+They are not the same type of thing, so the differences are conceptual.
+
+-----------------
+1. int[] (Array)
+-----------------
+
+Definition
+
+    int[] is a primitive array used to store multiple integer values
+    in a fixed-size memory structure.
+
+Characteristics:
+    Fixed size
+    Stores primitive types directly
+    Faster
+    No built-in methods
+
+Example:
+    int[] numbers = {10, 20, 30, 40};
+
+    System.out.println(numbers[0]);
+
+Output:
+    10
+
+Memory:
+    numbers
+       |
+       v
+    [10][20][30][40]
+
+Size cannot change after creation.
+
+-----------------
+2. ArrayList
+-----------------
+
+    ArrayList is a dynamic collection class from the Java Collections Framework.
+
+It belongs to the package:
+
+    java.util.ArrayList
+
+Characteristics:
+    Dynamic size (can grow/shrink)
+    Stores objects only
+    Many built-in methods
+    Slower than array (slightly)
+
+Example:
+    import java.util.ArrayList;
+
+    ArrayList<Integer> list = new ArrayList<>();
+
+    list.add(10);
+    list.add(20);
+    list.add(30);
+
+    System.out.println(list.get(0));
+
+Output:
+    10
+
+Internal Structure:
+
+    ArrayList internally uses an array but manages resizing automatically.
+
+-----------------
+3. API
+-----------------
+
+    API stands for Application Programming Interface.
+
+    In Java, an API is a collection of classes, interfaces, and methods provided
+    by the language or libraries.
+
+Example APIs:
+
+    java.lang
+    java.util
+    java.io
+    java.sql
+
+Example:
+
+    ArrayList itself is part of the Java API.
+
+Example usage:
+
+    import java.util.ArrayList;
+
+Here you are using the Java API.
+
+-----------------
+4. Key Differences
+-----------------
+| Feature | `int[]`                   | `ArrayList`                    | API                     |
+| ------- | ------------------------- | ------------------------------ | ----------------------- |
+| Type    | Data structure            | Collection class               | Library / Interface set |
+| Size    | Fixed                     | Dynamic                        | Not applicable          |
+| Stores  | Primitive values          | Objects                        | Classes & methods       |
+| Package | Built-in language feature | `java.util`                    | Many packages           |
+| Methods | None                      | Many (`add`, `remove`, `size`) | Provides functionality  |
+--------------------------------------------------------------------------------------------------
+
+----------------------------------
+5. Example Showing All Together
+----------------------------------
+
+    import java.util.ArrayList;
+
+    public class Example {
+
+        public static void main(String[] args) {
+
+            // Array
+            int[] arr = {1,2,3};
+
+            // ArrayList
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(10);
+
+            System.out.println(arr[0]);
+            System.out.println(list.get(0));
+        }
+    }
+
+Output:
+
+    1
+    10
+
+----------------------------------
+6. Simple Interview Explanation
+----------------------------------
+    int[]      → Fixed-size memory structure
+    ArrayList  → Resizable collection class
+    API        → Set of libraries/classes provided by Java

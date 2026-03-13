@@ -1,0 +1,156 @@
+-----------------------------------------------------
+1. Internal Working of Core Collection Classes
+-----------------------------------------------------
+
+| Class      | Internal Data Structure | How Data is Stored                          | Default Capacity | Load Factor | Key Operation Complexity |
+| ---------- | ----------------------- | ------------------------------------------- | ---------------- | ----------- | ------------------------ |
+| ArrayList  | Dynamic Array           | Elements stored in contiguous array         | 10               | N/A         | Access O(1), Insert O(n) |
+| LinkedList | Doubly Linked List      | Each element points to previous & next node | N/A              | N/A         | Insert/Delete O(1)       |
+| HashSet    | HashMap internally      | Elements stored as keys in HashMap          | 16               | 0.75        | Add/Search O(1)          |
+| HashMap    | Hash Table + Buckets    | Key hash determines bucket location         | 16               | 0.75        | Put/Get O(1) average     |
+| TreeSet    | TreeMap internally      | Stored in sorted Red-Black Tree             | N/A              | N/A         | Add/Search O(log n)      |
+| TreeMap    | Red-Black Tree          | Keys sorted automatically                   | N/A              | N/A         | Put/Get O(log n)         |
+
+-----------------------------------------------------
+2. Internal Working of HashMap (Most Important)
+-----------------------------------------------------
+
+Step-by-Step Process:
+    1.Key object is inserted using put(key, value)
+    2.Java calls hashCode() of the key
+    3.Hash value is converted into bucket index
+
+        Example formula:
+            index = hash(key) % capacity
+
+    4.Data is stored in that bucket
+    5.If another key maps to the same bucket → collision
+
+Collision Handling
+
+| Method         | Explanation                                    |
+| -------------- | ---------------------------------------------- |
+| Linked List    | Before Java 8 collisions stored in linked list |
+| Red-Black Tree | After Java 8 large buckets converted into tree |
+
+Condition for Tree conversion:
+    Bucket size > 8
+
+
+-----------------------------------------------------
+3. Internal Working of HashSet
+-----------------------------------------------------
+Important fact:
+
+    HashSet internally uses HashMap
+
+Example internal structure:
+
+    HashSet
+       ↓
+    HashMap
+       ↓
+    Key → Stored Element
+    Value → Dummy Object
+
+Example:
+
+    HashSet<String> set = new HashSet<>();
+    set.add("Java");
+
+Internally becomes:
+
+    HashMap.put("Java", PRESENT)
+
+
+-----------------------------------------------------
+4. Internal Working of ArrayList
+-----------------------------------------------------
+
+ArrayList internally uses:
+
+    Object[] elementData
+
+When array becomes full:
+
+    newCapacity = oldCapacity + (oldCapacity / 2)
+
+Example:
+
+    | Old Capacity | New Capacity |
+    | ------------ | ------------ |
+    | 10           | 15           |
+    | 15           | 22           |
+    | 22           | 33           |
+
+This is called Dynamic Resizing.
+
+-----------------------------------------------------
+5. LinkedList Internal Structure
+-----------------------------------------------------
+
+Each node contains:
+
+    | Field | Description              |
+    | ----- | ------------------------ |
+    | data  | Actual element           |
+    | next  | Pointer to next node     |
+    | prev  | Pointer to previous node |
+
+Structure:
+    NULL ← Node1 ⇄ Node2 ⇄ Node3 → NULL
+
+-----------------------------------------------------
+6. TreeMap / TreeSet Internal Working
+-----------------------------------------------------
+
+    Both use Red-Black Tree.
+
+Properties:
+
+    | Property      | Meaning                 |
+    | ------------- | ----------------------- |
+    | Balanced Tree | Height maintained       |
+    | Sorted Keys   | Automatic sorting       |
+    | No duplicates | Based on key comparison |
+    | Complexity    | O(log n)                |
+
+-----------------------------------------------------
+7. Big-O Complexity Comparison
+-----------------------------------------------------
+
+    | Operation       | ArrayList | LinkedList | HashSet | HashMap | TreeSet  |
+    | --------------- | --------- | ---------- | ------- | ------- | -------- |
+    | Add             | O(1)      | O(1)       | O(1)    | O(1)    | O(log n) |
+    | Remove          | O(n)      | O(1)       | O(1)    | O(1)    | O(log n) |
+    | Search          | O(n)      | O(n)       | O(1)    | O(1)    | O(log n) |
+    | Access by Index | O(1)      | O(n)       | N/A     | N/A     | N/A      |
+
+-----------------------------------------------------
+8. Most Important Interview Questions
+-----------------------------------------------------
+
+    | Question                              | Short Answer                          |
+    | ------------------------------------- | ------------------------------------- |
+    | Why HashMap is fast?                  | Uses hashing for direct bucket access |
+    | Why TreeMap is slower?                | Uses Red-Black Tree                   |
+    | Difference HashMap vs Hashtable?      | Hashtable is synchronized             |
+    | Why Set doesn't allow duplicates?     | Uses hashCode() and equals()          |
+    | Why ArrayList faster than LinkedList? | Direct index access                   |
+
+-----------------------------------------------------
+9. Simple Memory Diagram
+-----------------------------------------------------
+
+    HashMap
+
+    Bucket[0] → Node → Node
+    Bucket[1] → Node
+    Bucket[2] → TreeNode
+    Bucket[3] → NULL
+
+-----------------------------------------------------
+✅ Golden Interview Tip
+-----------------------------------------------------
+
+    HashMap = Hash Table + Linked List + Red Black Tree

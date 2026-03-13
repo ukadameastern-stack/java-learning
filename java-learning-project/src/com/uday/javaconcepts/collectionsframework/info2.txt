@@ -1,0 +1,46 @@
+=========================================================
+COLLECTIONS INTERVIEW FAQ
+=========================================================
+
+Q1 What is Collection Framework?
+    A unified architecture for storing and manipulating objects.
+
+Q2 Difference between List and Set?
+
+    List
+    -----
+        Allows duplicates
+        Maintains order
+
+    Set
+    ----
+        No duplicates
+        No guaranteed order
+
+Q3 Difference between ArrayList and LinkedList?
+
+    ArrayList
+    ---------
+        Faster random access
+        Uses dynamic array
+
+    LinkedList
+    ----------
+        Better for insert/delete
+        Uses doubly linked list
+
+Q4 Difference between HashMap and TreeMap?
+
+    HashMap
+    -------
+        Unordered
+        Faster
+
+    TreeMap
+    -------
+        Sorted keys
+        Slightly slower
+
+Q5 What is Iterator?
+
+    Iterator is used to traverse collection elements.

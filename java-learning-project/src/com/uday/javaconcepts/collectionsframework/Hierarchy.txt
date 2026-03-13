@@ -1,0 +1,144 @@
+-----------------------------------------------
+1. Java Collections Hierarchy
+-----------------------------------------------
+    Iterable (Interface)
+       |
+       └── Collection (Interface)
+             |
+             ├── List (Interface)
+             |      ├── ArrayList
+             |      ├── LinkedList
+             |      ├── Vector
+             |      └── Stack
+             |
+             ├── Set (Interface)
+             |      ├── HashSet
+             |      ├── LinkedHashSet
+             |      └── TreeSet
+             |
+             └── Queue (Interface)
+                    ├── PriorityQueue
+                    ├── ArrayDeque
+                    └── LinkedList
+
+    ⚠️ Important: Map is not part of Collection interface,
+       but it is part of the Collections Framework.
+
+-----------------------------------------------
+2. Map Hierarchy
+-----------------------------------------------
+
+    Map (Interface)
+       |
+       ├── HashMap
+       │      └── LinkedHashMap
+       |
+       ├── TreeMap
+       |
+       ├── Hashtable
+       │      └── Properties
+       |
+       └── WeakHashMap
+
+-----------------------------------------------
+3. Visual Table of Hierarchy
+-----------------------------------------------
+
+    | Level | Interface/Class | Example Implementations       |
+    | ----- | --------------- | ----------------------------- |
+    | 1     | Iterable        | Root interface                |
+    | 2     | Collection      | Base collection interface     |
+    | 3     | List            | ArrayList, LinkedList, Vector |
+    | 3     | Set             | HashSet, TreeSet              |
+    | 3     | Queue           | PriorityQueue, ArrayDeque     |
+    | 2     | Map             | HashMap, TreeMap              |
+
+-----------------------------------------------
+4. Simplified Diagram (Used in Interviews)
+-----------------------------------------------
+
+                    Iterable
+                        |
+                    Collection
+              _________|_________
+             |         |         |
+            List       Set      Queue
+             |         |         |
+       ArrayList    HashSet   PriorityQueue
+       LinkedList   TreeSet   ArrayDeque
+       Vector
+       Stack
+
+
+                        Map
+                   ______|______
+                  |             |
+               HashMap        TreeMap
+                  |
+             LinkedHashMap
+
+-----------------------------------------------
+5. Key Design Concepts
+-----------------------------------------------
+
+    | Concept    | Explanation                            |
+    | ---------- | -------------------------------------- |
+    | Iterable   | Allows iteration using `for-each` loop |
+    | Collection | Root interface for List, Set, Queue    |
+    | List       | Ordered collection                     |
+    | Set        | Unique elements                        |
+    | Queue      | FIFO processing                        |
+    | Map        | Key-value storage                      |
+
+-----------------------------------------------
+6. Example Code Demonstrating Hierarchy
+-----------------------------------------------
+    import java.util.*;
+
+    public class CollectionHierarchyExample {
+
+        public static void main(String[] args) {
+
+            List<String> list = new ArrayList<>();
+            Set<String> set = new HashSet<>();
+            Queue<String> queue = new LinkedList<>();
+            Map<Integer,String> map = new HashMap<>();
+
+            list.add("Java");
+            set.add("Collections");
+            queue.add("QueueElement");
+            map.put(1, "HashMapValue");
+
+            System.out.println(list);
+            System.out.println(set);
+            System.out.println(queue);
+            System.out.println(map);
+        }
+    }
+
+    /*
+    OUTPUT
+    [Java]
+    [Collections]
+    [QueueElement]
+    {1=HashMapValue}
+    */
+
+-----------------------------------------------
+7. Quick Interview Memory Trick
+-----------------------------------------------
+
+    Collection Framework =
+
+    List  → Ordered + Duplicates
+    Set   → Unique Elements
+    Queue → FIFO Processing
+    Map   → Key-Value Pair
+
+-----------------------------------------------
+
+
+
+
+
+
