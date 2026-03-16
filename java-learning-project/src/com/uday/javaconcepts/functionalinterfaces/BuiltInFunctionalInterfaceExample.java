@@ -25,11 +25,11 @@ public class BuiltInFunctionalInterfaceExample {
         Predicate<Integer> isEven =
                 (num) -> num % 2 == 0;
 
-        System.out.println("Is even: " + isEven.test(10));
-        System.out.println("Is even: " + isEven.test(7));
+        System.out.println("Is even: " + isEven.test(10)); // true
+        System.out.println("Is even: " + isEven.test(7)); // false
 
         Function<String, Integer> parseInteger = String::length;
-        System.out.println("Parse integer: " + parseInteger.apply("Hello"));
+        System.out.println("Parse integer: " + parseInteger.apply("Hello")); // 5
 
 
     }
@@ -38,6 +38,7 @@ public class BuiltInFunctionalInterfaceExample {
 /*
 OUTPUT
 --------------------------------
-true
-false
+Is even: true
+Is even: false
+Parse integer: 5
 */

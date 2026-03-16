@@ -1,0 +1,121 @@
+------------------
+What is FI?
+------------------
+
+    In Java (especially in Java 8+), FI usually means Functional Interface.
+
+Functional Interface (FI):
+
+    A Functional Interface is an interface that contains exactly one abstract method.
+
+    It is mainly used for Lambda Expressions and method references.
+
+Definition:
+
+    An interface with only one abstract method is called a Functional Interface.
+
+Example of Functional Interface:
+
+    @FunctionalInterface
+    interface Calculator {
+
+        int add(int a, int b);
+    }
+
+Usage with Lambda Expression:
+
+    Calculator c = (a,b) -> a + b;
+
+    System.out.println(c.add(5,3));
+
+Output
+
+    8
+
+-------------------------------------------
+Why Functional Interfaces Were Introduced?
+-------------------------------------------
+
+    They enable functional programming in Java.
+
+Main uses:
+
+    Lambda expressions
+
+    Method references
+
+    Stream API
+
+    Event handling
+
+--------------------------------
+Built-in Functional Interfaces
+--------------------------------
+
+    Java provides many predefined functional interfaces in java.util.function.
+
+    | Interface       | Method     | Example            |
+    | --------------- | ---------- | ------------------ |
+    | `Predicate<T>`  | `test()`   | condition checking |
+    | `Function<T,R>` | `apply()`  | transformation     |
+    | `Consumer<T>`   | `accept()` | consume value      |
+    | `Supplier<T>`   | `get()`    | supply value       |
+
+Example:
+
+    Predicate<Integer> p = x -> x > 10;
+
+    System.out.println(p.test(20));
+
+Output
+
+    true
+
+---------------
+Important Rule
+---------------
+
+    A functional interface can contain:
+
+    | Allowed                  | Not Allowed                   |
+    | ------------------------ | ----------------------------- |
+    | One abstract method      | More than one abstract method |
+    | Multiple default methods | —                             |
+    | Multiple static methods  | —                             |
+
+Example
+
+    @FunctionalInterface
+    interface Test {
+
+        void show();   // only abstract method
+
+        default void print() {
+            System.out.println("default method");
+        }
+    }
+
+---------------------------------------
+Common Functional Interfaces in Java
+---------------------------------------
+
+Very frequently used:
+
+    Runnable
+    Callable
+    Comparator
+    Consumer
+    Supplier
+    Predicate
+    Function
+
+Example:
+
+    Runnable r = () -> System.out.println("Running");
+
+---------------------
+Interview Definition
+---------------------
+
+A Functional Interface is an interface that contains exactly one abstract method
+and can be implemented using lambda expressions.

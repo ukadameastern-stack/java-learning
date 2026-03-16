@@ -1,0 +1,98 @@
+-----------------------------------
+Why Mutable Keys Break HashMap?
+-----------------------------------
+
+    This is a very dangerous bug many developers encounter.
+
+Example:
+
+    class Student {
+        int id;
+
+        Student(int id) {
+            this.id = id;
+        }
+
+        public int hashCode() {
+            return id;
+        }
+
+        public boolean equals(Object o) {
+            Student s = (Student)o;
+            return id == s.id;
+        }
+    }
+
+Usage:
+
+    Map<Student,String> map = new HashMap<>();
+
+    Student s1 = new Student(101);
+
+    map.put(s1,"Uday");
+
+    s1.id = 200;   // key modified
+
+    System.out.println(map.get(s1));
+
+Output:
+
+    null
+
+Why this happens?
+
+When inserted:
+
+    hashCode = 101
+    bucket = 101 % capacity
+
+After modification:
+
+    hashCode = 200
+
+Now the key belongs to a different bucket,
+but the object is still stored in the old bucket.
+
+So HashMap cannot find it.
+
+-----------------------
+Rule for HashMap keys
+-----------------------
+
+Keys must be:
+
+    immutable
+
+Good key types:
+
+    | Type      | Safe |
+    | --------- | ---- |
+    | String    | ✔    |
+    | Integer   | ✔    |
+    | UUID      | ✔    |
+    | LocalDate | ✔    |
+
+Bad key types:
+
+    | Type                         | Problem          |
+    | ---------------------------- | ---------------- |
+    | Mutable objects              | hashCode changes |
+    | Objects with changing fields | lookup fails     |
+
+--------------------
+Quick Summary
+--------------------
+
+    | Topic              | Key Idea                    |
+    | ------------------ | --------------------------- |
+    | Null key           | Only one allowed            |
+    | Null values        | Multiple allowed            |
+    | Java 8 improvement | LinkedList → Red-Black Tree |
+    | Mutable keys       | Break HashMap lookup        |
+
+------------------------------
+Very important interview rule
+------------------------------
+
+    HashMap key must be immutable and must correctly override
+    hashCode() and equals().

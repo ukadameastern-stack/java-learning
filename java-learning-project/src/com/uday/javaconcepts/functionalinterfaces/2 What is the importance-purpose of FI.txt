@@ -1,0 +1,139 @@
+The importance (purpose) of a Functional Interface (FI) in Java
+is mainly related to enabling functional programming using Lambda expressions
+and method references.
+It allows behavior (logic) to be passed as data.
+
+---------------------------------
+1️⃣ Enables Lambda Expressions
+---------------------------------
+
+    Before Java 8, we had to use anonymous classes.
+
+Example without FI (anonymous class):
+
+    Runnable r = new Runnable() {
+        public void run() {
+            System.out.println("Running...");
+        }
+    };
+
+With Functional Interface + Lambda:
+
+    Runnable r = () -> System.out.println("Running...");
+
+✔ Code becomes shorter and cleaner
+
+---------------------------------
+2️⃣ Supports Functional Programming
+---------------------------------
+
+    Functional interfaces allow passing functions as parameters.
+
+Example:
+
+    interface MathOperation {
+        int operate(int a, int b);
+    }
+
+Usage:
+
+    MathOperation add = (a,b) -> a + b;
+    MathOperation multiply = (a,b) -> a * b;
+
+Same interface → different behaviors.
+
+-------------------------------------
+3️⃣ Used in Stream API (Very Important)
+-------------------------------------
+
+    Streams rely heavily on functional interfaces.
+
+Example:
+
+    List<Integer> list = List.of(10,20,30,40);
+
+    list.stream()
+        .filter(x -> x > 20)
+        .forEach(System.out::println);
+
+Here:
+
+    Operation	FI Used
+    filter()	Predicate
+    forEach()	Consumer
+
+-------------------------------------
+4️⃣ Enables Method References
+-------------------------------------
+
+    Functional interfaces allow method references.
+
+Example:
+
+    list.forEach(System.out::println);
+
+Instead of:
+
+    list.forEach(x -> System.out.println(x));
+
+Cleaner and more readable.
+
+-------------------------------------
+5️⃣ Improves Code Reusability
+-------------------------------------
+
+    You can define behavior once and reuse it with different logic.
+
+Example:
+
+    Predicate<Integer> isEven = x -> x % 2 == 0;
+    Predicate<Integer> isOdd = x -> x % 2 != 0;
+
+-------------------------------------
+6️⃣ Used Widely in Modern Frameworks
+-------------------------------------
+
+Functional interfaces are heavily used in:
+
+    Spring Boot
+    Stream API
+    CompletableFuture
+    Event handling
+    Reactive programming
+
+-------------------------------------
+7️⃣ Enables Parallel Processing
+-------------------------------------
+
+Example:
+
+    list.parallelStream()
+        .forEach(System.out::println);
+
+Parallel execution works well with functional style programming.
+
+-------------------------------------
+Quick Summary
+-------------------------------------
+
+    | Purpose                | Benefit            |
+    | ---------------------- | ------------------ |
+    | Lambda support         | shorter code       |
+    | Functional programming | pass behavior      |
+    | Stream API             | filtering, mapping |
+    | Method references      | cleaner syntax     |
+    | Parallel processing    | better performance |
+
+-------------------------------------
+Short Interview Answer
+-------------------------------------
+
+If asked:
+
+    Why Functional Interfaces are important?
+
+Answer:
+
+    Functional Interfaces enable lambda expressions and functional programming in Java,
+    allowing behavior to be passed as parameters, making code more concise,
+    flexible, and suitable for Stream API and parallel processing.

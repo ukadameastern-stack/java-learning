@@ -1,0 +1,144 @@
+---------------------------------------------------------------
+ClassCastException
+---------------------------------------------------------------
+        TreeMap<Object, Object> treeMap = new TreeMap<>();
+
+        treeMap.put(1, "Two");
+        treeMap.put(3, 11);
+        treeMap.put(4, 12.20F);
+        treeMap.put(5, 1200L);
+        treeMap.put("long", 130L);
+        treeMap.put('A', "Amol");
+        treeMap.put('b', "Balaji");
+        treeMap.put('c', 15);
+
+----------------------------------------
+Why the Exception Happens?
+----------------------------------------
+    This exception occurs because TreeMap requires all keys to be mutually comparable,
+    but your map contains different key types (Integer, String, Character).
+    When TreeMap tries to sort them, Java attempts to compare incompatible types.
+
+    TreeMap internally uses a Red-Black Tree and must compare keys to decide
+    where to place them.
+
+Comparison happens through:
+
+    Comparable.compareTo()
+    or
+
+    a provided Comparator.
+
+When you insert keys like:
+
+    treeMap.put(1, "Two");      // Integer
+    treeMap.put("long", 130L);  // String
+
+TreeMap tries something like:
+
+    ((Comparable)key1).compareTo(key2)
+
+Which becomes:
+
+    Integer.compareTo(String)
+
+or
+
+    String.compareTo(Integer)
+
+This is invalid, so Java throws:
+
+    ClassCastException
+    Integer cannot be cast to String
+
+The stack trace shows it happens inside:
+
+    String.compareTo()
+    TreeMap.put()
+
+----------------------------------------
+Why HashMap Did Not Fail
+----------------------------------------
+
+HashMap uses:
+
+    hashCode()
+
+    equals()
+
+It does not compare keys, so different types are allowed.
+
+Example that works in HashMap:
+
+    Map map = new HashMap();
+
+    map.put(1, "Two");
+    map.put("long", 130L);
+    map.put('A', "Amol");
+
+No sorting → no comparison → no error.
+
+----------------------------------------
+How to Fix It?
+----------------------------------------
+
+Option 1 — Use Same Key Type (Recommended):
+
+    All keys are Integer → valid comparison.
+
+        Map<Integer,Object> map = new TreeMap<>();
+
+        map.put(1, "Two");
+        map.put(3, 11);
+        map.put(4, 12.20f);
+        map.put(5, 1200L);
+
+Option 2 — Convert Keys to String:
+
+    Now all keys are String, so sorting works.
+
+        Map<String,Object> map = new TreeMap<>();
+
+        map.put("1", "Two");
+        map.put("3", 11);
+        map.put("4", 12.20f);
+        map.put("5", 1200L);
+        map.put("long", 130L);
+
+Option 3 — Use HashMap if Mixed Types Are Needed:
+
+    If mix key types are needed then use HasMap instead TreeMap.
+
+        Map<Object,Object> map = new HashMap<>();
+
+Key Rule of TreeMap:
+
+    All keys must be:
+
+        Same type, or
+
+        Comparable with each other
+
+    Otherwise:
+
+        ClassCastException
+
+----------------------------------------
+Quick Comparison
+----------------------------------------
+
+    | Feature             | HashMap    | TreeMap        |
+    | ------------------- | ---------- | -------------- |
+    | Ordering            | None       | Sorted         |
+    | Mixed key types     | Allowed    | Not allowed    |
+    | Internal structure  | Hash table | Red-Black tree |
+    | Comparison required | No         | Yes            |
+
+----------------------------------------
+Interview one-line explanation
+----------------------------------------
+
+    TreeMap throws `ClassCastException` because it must compare keys for sorting,
+    and keys of different types (Integer, String, Character) cannot be compared
+    with `compareTo()``.
+

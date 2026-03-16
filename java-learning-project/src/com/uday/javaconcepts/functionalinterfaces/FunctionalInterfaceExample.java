@@ -34,6 +34,11 @@ interface Greeting {
     void sayHello(String name); // single abstract method
 }
 
+@FunctionalInterface
+interface Square {
+    int accept(int number);
+}
+
 public class  FunctionalInterfaceExample {
 
     public static void main(String[] args) {
@@ -46,6 +51,16 @@ public class  FunctionalInterfaceExample {
         };
 
         g.sayHello("Uday");
+
+        Square s = new Square() {
+            @Override
+            public int accept(int number) {
+                return number * number;
+            }
+        };
+
+        System.out.println(s.accept(2)); // 4
+        System.out.println(s.accept(15)); // 225
     }
 }
 
@@ -53,4 +68,6 @@ public class  FunctionalInterfaceExample {
 OUTPUT
 --------------------------------
 Hello Uday
+4
+225
 */

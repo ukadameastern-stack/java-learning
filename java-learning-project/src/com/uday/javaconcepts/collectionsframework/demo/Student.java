@@ -1,5 +1,7 @@
 package com.uday.javaconcepts.collectionsframework.demo;
 
+import java.util.Objects;
+
 public class Student {
     int id;
     String name;
@@ -29,7 +31,28 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student [id=" + id + ", name=" + name + "]";
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Student s = (Student) obj;
+
+        return id == s.id && Objects.equals(name, s.name);
     }
 
     public static void main(String[] args) {

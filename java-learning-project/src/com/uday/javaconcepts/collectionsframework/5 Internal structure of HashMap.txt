@@ -1,0 +1,265 @@
+Below is a clear visual explanation of the internal structure of a HashMap.
+
+A HashMap mainly consists of:
+
+    Array (table) + Buckets + Nodes
+
+----------------------------------------------
+1️⃣ HashMap Internal Structure
+----------------------------------------------
+
+    Internally HashMap maintains an array of buckets.
+
+Default capacity:
+
+    16
+
+Structure:
+
+    table[0]
+    table[1]
+    table[2]
+    table[3]
+    ...
+    table[15]
+
+Each position in the array is called a bucket.
+
+----------------------------------------------
+2️⃣ When You Insert a Key
+----------------------------------------------
+
+Example:
+
+    map.put("Uday", 100);
+
+Steps performed internally:
+
+    Step 1 — Calculate Hash
+
+        Java calls:
+
+            hashCode()
+
+        Example:
+
+            "Uday".hashCode() = 2671907
+
+    Step 2 — Convert Hash to Bucket Index
+
+        HashMap calculates:
+
+            index = hash & (capacity - 1)
+
+        Example:
+
+            2671907 & 15
+
+        Result:
+
+            3
+
+        So entry goes to:
+
+            table[3]
+
+----------------------------------------------
+3️⃣ Bucket Storage
+----------------------------------------------
+
+Inside bucket:
+
+    Node<K,V>
+
+Structure of Node:
+
+    Node
+     ├── hash
+     ├── key
+     ├── value
+     └── next
+
+Example:
+
+    table[3]
+       ↓
+    [hash,key,value,next]
+
+----------------------------------------------
+4️⃣ Example HashMap
+----------------------------------------------
+
+Code:
+
+    map.put("A",10);
+    map.put("B",20);
+    map.put("C",30);
+    map.put("D",40);
+
+Possible structure:
+
+    table
+
+    index
+
+    0   →
+    1   →
+    2   →
+    3   →  (A,10)
+    4   →
+    5   →  (C,30)
+    6   →
+    7   →  (B,20)
+    8   →
+    9   →  (D,40)
+
+----------------------------------------------
+5️⃣ What is Collision
+----------------------------------------------
+
+    Two keys produce the same bucket index.
+
+Example:
+
+    "A".hashCode() → index 3
+    "K".hashCode() → index 3
+
+Both stored in same bucket.
+
+Structure becomes:
+
+    table[3]
+
+    (A,10)
+       ↓
+    (K,50)
+
+This forms a LinkedList.
+
+    (A,10) → (K,50) → (X,90)
+
+----------------------------------------------
+6️⃣ Java 8 Improvement (Tree Conversion)
+----------------------------------------------
+
+If bucket size becomes greater than 8:
+
+    LinkedList converts into Red-Black Tree.
+
+Before Java 8:
+
+    (A) → (B) → (C) → (D) → (E)
+
+Search complexity:
+
+    O(n)
+
+After Java 8:
+
+         C
+       /   \
+      A     E
+       \   /
+        B D
+
+Search complexity:
+
+    O(log n)
+
+----------------------------------------------
+7️⃣ HashMap Resize
+----------------------------------------------
+
+Default load factor:
+
+    0.75
+
+Resize condition:
+
+    capacity * loadFactor
+
+Example:
+
+    16 * 0.75 = 12
+
+When 13th element is inserted:
+
+    HashMap resizes
+
+New capacity:
+
+    32
+
+Then all entries are rehash-distributed again.
+
+----------------------------------------------
+8️⃣ Full Internal Diagram
+----------------------------------------------
+
+    HashMap
+       │
+       │
+       ▼
+    Array (table)
+
+    index
+
+    0  → null
+
+    1  → Node(A,10)
+
+    2  → Node(B,20)
+            ↓
+          Node(K,50)
+
+    3  → Node(C,30)
+
+    4  → null
+
+    5  → Node(D,40)
+
+Each bucket may contain:
+
+    Single Node
+    LinkedList
+    Red-Black Tree (Java 8+)
+
+----------------------------------------------
+9️⃣ HashMap Performance
+----------------------------------------------
+
+    | Operation      | Time Complexity    |
+    | -------------- | ------------------ |
+    | put()          | O(1) average       |
+    | get()          | O(1) average       |
+    | remove()       | O(1) average       |
+    | collision case | O(log n) (Java 8+) |
+
+----------------------------------------------
+🔟 Very Important Internal Classes
+----------------------------------------------
+
+Inside HashMap:
+
+    HashMap
+     ├── Node
+     ├── TreeNode
+     └── Entry
+
+TreeNode is used when bucket becomes a Red-Black Tree.
+
+----------------------------------------------
+Key Concept to Remember
+----------------------------------------------
+
+A HashMap is basically:
+
+    Array + Hashing + Buckets + LinkedList/Tree
+
+----------------------------------------------
+✅ Short interview definition
+----------------------------------------------
+
+    HashMap internally uses an array of buckets,
+    where each bucket stores entries using linked lists
+    or red-black trees, and keys are placed using their hashCode().

@@ -1,0 +1,44 @@
+----------------------------------------
+Why HashMap Became Faster After Java 8?
+----------------------------------------
+
+Before Java 8, collisions were handled using a LinkedList.
+
+Example collision bucket:
+
+    bucket 3
+       ↓
+    Node1 → Node2 → Node3 → Node4
+
+Searching becomes:
+
+    O(n)
+
+If many keys collide, performance becomes slow.
+
+----------------------
+Java 8 Improvement
+----------------------
+
+When the number of elements in a bucket exceeds 8,
+the linked list converts to a Red-Black Tree.
+
+           bucket
+             ↓
+           Node2
+          /     \
+       Node1   Node3
+                  \
+                  Node4
+
+This changes lookup complexity from:
+
+    O(n) → O(log n)
+
+Important constants in Java:
+
+    | Constant | Meaning                                 |
+    | -------- | --------------------------------------- |
+    | 8        | treeify threshold                       |
+    | 6        | untreeify threshold                     |
+    | 64       | minimum table size before treeification |

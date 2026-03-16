@@ -36,8 +36,14 @@ public class ConsumerExample {
         Consumer<String> printer =
                 (name) -> System.out.println("Hello " + name);
 
-        printer.accept("Uday");
-        printer.accept("Java");
+        printer.accept("Uday"); // Hello Uday
+        printer.accept("Java"); // Hello Java
+
+        Consumer<Integer> square = (num) -> System.out.println("Square: " + num * num);
+        square.accept(1); // Square: 1
+        square.accept(20); // Square: 400
+        square.accept(30); // Square: 900
+
     }
 }
 

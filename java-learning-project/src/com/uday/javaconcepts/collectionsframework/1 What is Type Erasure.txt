@@ -1,0 +1,191 @@
+package com.uday.javaconcepts.collectionsframework.demo;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
+/*
+
+Why HashMap<String, Integer> is still not 100% type safe
+internally (Type Erasure in Java Generics).
+
+---------------------------------------------
+1. What is Type Erasure
+---------------------------------------------
+
+    In Java, generic type information is removed during compilation.
+
+So this code:
+
+    Map<String, Integer> map = new HashMap<>();
+
+After compilation behaves like:
+
+    Map map = new HashMap();
+
+The compiler uses generics only for compile-time checking,
+but the JVM does not store the generic type information.
+
+This process is called:
+
+    Type Erasure
+
+---------------------------------------------
+2. Example Showing the Problem
+---------------------------------------------
+
+    Map<String, Integer> map = new HashMap<>();
+
+    map.put("one", 1);
+    map.put("two", 2);
+
+Normally this is safe.
+
+But using reflection, someone could still break type safety:
+
+    public class MapOperation2 {
+
+        public static void main(String[] args) throws Exception {
+
+            Map<String, Integer> map = new HashMap<>();
+
+            map.put("one", 1);
+
+            Method m = map.getClass().getMethod("put", Object.class, Object.class);
+
+            m.invoke(map, "two", "Hello"); // inserting wrong type
+
+            System.out.println(map); // {one=1, two=Hello}
+
+        }
+    }
+
+o/p:
+
+    {one=1, two=Hello}
+
+Even though we declared:
+
+    Map<String,Integer>
+
+a String value was inserted.
+
+Why? Because internally the map is treated like:
+
+    Map<Object,Object>
+
+after type erasure.
+
+---------------------------------------------
+3. What the Compiler Actually Generates
+---------------------------------------------
+
+Your code:
+
+    Map<String,Integer> map = new HashMap<>();
+    map.put("one",1);
+
+Compiler internally converts to something like:
+
+    Map map = new HashMap();
+    map.put("one", Integer.valueOf(1));
+
+So generics are only compile-time checks.
+
+---------------------------------------------
+4. Another Proof
+---------------------------------------------
+
+This code:
+
+    ArrayList<String> list1 = new ArrayList<>();
+    ArrayList<Integer> list2 = new ArrayList<>();
+
+    System.out.println(list1.getClass() == list2.getClass());
+
+o/p:
+
+    true
+
+Because after compilation both become:
+
+    ArrayList
+
+Generic information is erased.
+
+---------------------------------------------
+5. Why Java Uses Type Erasure
+---------------------------------------------
+
+When generics were introduced in Java 5,
+Java already had millions of programs using collections.
+
+To keep backward compatibility, the JVM was not modified to store generic types.
+
+So Java chose:
+
+    Compile-time generics
+    Runtime type erasure
+
+---------------------------------------------
+6. Benefits of Type Erasure
+---------------------------------------------
+
+    | Benefit                | Explanation                  |
+    | ---------------------- | ---------------------------- |
+    | Backward compatibility | Old Java code still works    |
+    | No JVM changes needed  | Generics handled by compiler |
+    | Smaller bytecode       | No generic metadata stored   |
+
+---------------------------------------------
+7. Limitations Because of Type Erasure
+---------------------------------------------
+
+You cannot do:
+
+    new T();
+
+or
+
+    T.class
+
+or
+
+    if (obj instanceof List<String>)
+
+Example invalid code:
+
+    if (list instanceof ArrayList<String>)  // ❌ compile error
+
+Valid:
+
+    if (list instanceof ArrayList) // ✔
+
+---------------------------------------------
+8. Interview-Level Summary
+---------------------------------------------
+
+Generics in Java are:
+
+    Compile-time type safety only
+
+because of:
+
+    Type Erasure
+
+Meaning:
+
+    Generic type information is removed during compilation.
+
+---------------------------------------------
+One-line interview answer
+---------------------------------------------
+
+    Java generics use type erasure, meaning
+    generic type information is removed at compile time,
+    so at runtime collections behave like raw types.
+
+---------------------------------------------
+
+
+ */

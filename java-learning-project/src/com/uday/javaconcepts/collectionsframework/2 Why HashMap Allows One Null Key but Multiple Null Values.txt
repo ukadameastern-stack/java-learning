@@ -1,0 +1,49 @@
+----------------------------------------------------------
+Why HashMap Allows One Null Key but Multiple Null Values?
+----------------------------------------------------------
+Example:
+
+    Map<String,String> map = new HashMap<>();
+
+    map.put(null, "Java");
+    map.put(null, "Spring");   // replaces previous value
+
+    map.put("A", null);
+    map.put("B", null);
+
+    System.out.println(map);
+
+Possible output:
+
+    {null=Spring, A=null, B=null}
+
+----------------------------
+Why only one null key?
+----------------------------
+
+    HashMap uses hashCode() of the key to determine the bucket.
+
+    But null has no hashCode().
+
+    So Java treats it specially and always stores it in bucket index 0.
+
+Simplified internal logic:
+
+    if (key == null)
+        return 0;
+
+Since only one key can exist in a bucket position as the same key,
+inserting another null key replaces the previous value.
+
+---------------------------------------
+Why multiple null values are allowed?
+---------------------------------------
+
+    Values are not used for hashing or comparison.
+    Only keys determine uniqueness.
+
+    So multiple entries can have null values:
+
+        A → null
+        B → null
+        C → null
