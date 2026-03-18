@@ -1,0 +1,72 @@
+com.uday.javaconcepts.streamapi
+│
+├── 01_StreamBasics.java
+├── 02_StreamCreation.java
+├── 03_IntermediateOperations.java
+├── 04_TerminalOperations.java
+├── 05_MapVsFlatMap.java
+├── 06_ReduceOperation.java
+├── 07_GroupingByExamples.java
+├── 08_PartitioningByExamples.java
+├── 09_ParallelStreams.java
+├── 10_StreamInterviewProblems.java
+└── 11_StreamFAQ.java
+
+Key Concepts Summary:
+
+    | Concept      | Explanation                        |
+    | ------------ | ---------------------------------- |
+    | Stream       | sequence of data processing        |
+    | Source       | collection / array                 |
+    | Intermediate | filter, map, sorted                |
+    | Terminal     | forEach, count                     |
+    | Pipeline     | Source → Intermediate → Terminal   |
+    | Lazy         | executed only when terminal called |
+
+
+Important Stream API Interview Topics:
+
+    | Topic          | Purpose                   |
+    | -------------- | ------------------------- |
+    | map            | transform elements        |
+    | flatMap        | flatten nested structures |
+    | reduce         | aggregation               |
+    | groupingBy     | grouping objects          |
+    | partitioningBy | split into 2 groups       |
+    | parallelStream | parallel execution        |
+
+Stream Execution Model:
+
+    Source
+      │
+      ▼
+    Intermediate Operations
+    (filter,map,sorted)
+      │
+      ▼
+    Terminal Operation
+    (forEach,collect,count)
+
+Lazy Evaluation Concept:
+
+       Example:
+
+           list.stream()
+               .filter(...)
+               .map(...)
+
+       Nothing executes until a terminal operation appears.
+
+           forEach()
+           collect()
+           count()
+
+Real-World Use Cases:
+
+    Streams are heavily used in:
+
+        Spring Boot services
+        Data processing pipelines
+        REST API transformations
+        Database result filtering
+        Microservices aggregation logic

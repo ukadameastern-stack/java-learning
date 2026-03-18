@@ -32,6 +32,13 @@ public class OptionalCreationExample {
         Optional<String> optionalName = Optional.of(name);
 
         System.out.println(optionalName);
+
+
+        String name2 = null;
+
+        Optional<String> optionalName2 = Optional.ofNullable(name2);
+
+        System.out.println(optionalName2);
     }
 }
 

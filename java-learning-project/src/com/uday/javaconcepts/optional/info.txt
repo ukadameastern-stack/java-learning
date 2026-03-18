@@ -11,3 +11,19 @@ Key Methods Summary
 | `orElseThrow()` | Throws exception                     |
 | `map()`         | Transforms value                     |
 | `filter()`      | Filters value                        |
+
+
+| Method          | Purpose                             | Real-time Use Case                | Code Example                                    |
+| --------------- | ----------------------------------- | --------------------------------- | ----------------------------------------------- |
+| `of()`          | Create Optional with non-null value | Mandatory DB field                | `Optional.of(user)`                             |
+| `ofNullable()`  | Create Optional that may be null    | API response / DB nullable column | `Optional.ofNullable(user)`                     |
+| `empty()`       | Empty Optional                      | Default fallback scenario         | `Optional.empty()`                              |
+| `isPresent()`   | Check value exists                  | Conditional logic (legacy style)  | `if(opt.isPresent())`                           |
+| `ifPresent()`   | Execute if value exists             | Logging / sending email           | `opt.ifPresent(u -> sendEmail(u))`              |
+| `get()` ⚠️      | Get value (unsafe)                  | Rarely used (avoid in prod)       | `opt.get()`                                     |
+| `orElse()`      | Default value if empty              | Default config / fallback         | `opt.orElse("Guest")`                           |
+| `orElseGet()`   | Lazy default value                  | Expensive computation             | `opt.orElseGet(() -> loadFromDB())`             |
+| `orElseThrow()` | Throw exception if empty            | Validation / required field       | `opt.orElseThrow(() -> new RuntimeException())` |
+| `map()`         | Transform value                     | Convert entity → DTO              | `opt.map(User::getName)`                        |
+| `flatMap()`     | Avoid nested Optional               | Chained API calls                 | `opt.flatMap(User::getAddress)`                 |
+| `filter()`      | Apply condition                     | Validation checks                 | `opt.filter(u -> u.isActive())`                 |

@@ -1,0 +1,142 @@
+-------------------------------------
+1. What is Method Reference in Java
+-------------------------------------
+    A Method Reference (MR) is a shorter and cleaner way to write a Lambda Expression
+    when the lambda only calls an existing method.
+
+Instead of writing:
+
+    x -> System.out.println(x)
+
+you can write:
+
+    System.out::println
+
+General syntax:
+
+    ClassName::methodName
+
+or
+
+    objectReference::methodName
+
+-------------------------------------
+2️⃣ Why Method References?
+-------------------------------------
+
+Advantages:
+
+    1️⃣ Code becomes shorter
+    2️⃣ Improves readability
+    3️⃣ Avoids unnecessary lambda expressions
+    4️⃣ Cleaner functional programming style
+
+Example:
+
+    Lambda Expression
+        list.forEach(x -> System.out.println(x));
+
+    Method Reference
+        list.forEach(System.out::println);
+
+Both produce the same result.
+
+-------------------------------------
+3️⃣ Method Reference vs Lambda Expression
+-------------------------------------
+
+    | Feature     | Lambda Expression  | Method Reference   |
+    | ----------- | ------------------ | ------------------ |
+    | Syntax      | `(x) -> method(x)` | `Class::method`    |
+    | Code length | longer             | shorter            |
+    | Readability | good               | better             |
+    | Use case    | custom logic       | direct method call |
+
+Lambda:
+
+    list.stream()
+        .map(x -> x.toUpperCase())
+        .forEach(x -> System.out.println(x));
+
+Method Reference:
+
+    list.stream()
+        .map(String::toUpperCase)
+        .forEach(System.out::println);
+
+-------------------------------------
+4️⃣ Types of Method References
+-------------------------------------
+
+    Java provides 4 types of Method References.
+
+    | Type                                | Syntax                      | Example                                  |
+    | ----------------------------------- | --------------------------- | ---------------------------------------- |
+    | Static Method Reference             | `ClassName::staticMethod`   | `list.stream().map(MathUtils::square)`   |
+    | Instance Method Reference           | `object::instanceMethod`    | `list.forEach(printer::print)`           |
+    | Instance Method of Arbitrary Object | `ClassName::instanceMethod` | `list.stream().map(String::toUpperCase)` |
+    | Constructor Reference               | `ClassName::new`            | `Supplier<Employee> emp = Employee::new` |
+
+-------------------------------------------
+9️⃣ Real-time Use Cases of Method References
+-------------------------------------------
+
+    Method references are commonly used in:
+
+        1️⃣ Stream API
+            list.forEach(System.out::println);
+
+        2️⃣ Sorting
+            list.sort(String::compareTo);
+
+        3️⃣ Mapping objects
+            list.stream()
+                .map(Employee::getName)
+                .forEach(System.out::println);
+
+        4️⃣ Data transformation
+            list.stream()
+                .map(String::length)
+                .forEach(System.out::println);
+
+-------------------------------------
+1️⃣1️⃣ When NOT to Use Method Reference
+-------------------------------------
+
+    If logic is complex, use Lambda instead.
+
+Example:
+
+    list.stream()
+        .filter(x -> x > 10 && x < 50)
+
+This cannot be simplified using Method Reference.
+
+-------------------------------------
+1️⃣2️⃣ Interview Summary
+-------------------------------------
+
+    | Concept          | Key Point            |
+    | ---------------- | -------------------- |
+    | Method Reference | Short form of Lambda |
+    | Syntax           | `Class::method`      |
+    | Requirement      | Functional Interface |
+    | Main Usage       | Streams              |
+    | Types            | 4 types              |
+
+-------------------------------------
+1️⃣3️⃣ Visual Flow
+-------------------------------------
+
+    Lambda Expression
+          │
+          ▼
+    (x) -> System.out.println(x)
+
+          │
+          ▼
+
+    Method Reference
+    System.out::println
+
+-------------------------------------

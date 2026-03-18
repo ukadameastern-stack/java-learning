@@ -16,7 +16,7 @@ public class OptionalIsPresentExample {
 
         Optional<String> name = Optional.of("Java");
 
-        if (name.isPresent()) {
+        if (name.isPresent() && !name.get().equals("")) {
             System.out.println("Value: " + name.get());
         }
     }

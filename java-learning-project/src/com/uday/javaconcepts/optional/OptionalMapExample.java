@@ -14,12 +14,13 @@ public class OptionalMapExample {
 
     public static void main(String[] args) {
 
-        Optional<String> name = Optional.of("java");
+        Optional<String> name = Optional.of("Java");
 
         Optional<String> upper =
                 name.map(String::toUpperCase);
 
         System.out.println(upper);
+        System.out.println(name.map(n -> n.toLowerCase()));
     }
 }
 
@@ -27,4 +28,5 @@ public class OptionalMapExample {
 OUTPUT
 --------------------------------
 Optional[JAVA]
+Optional[java]
 */
