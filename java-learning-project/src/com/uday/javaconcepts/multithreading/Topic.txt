@@ -1,0 +1,27 @@
+com.uday.javaconcepts.multithreading
+│
+├── basics
+│   ├── ThreadCreationExample.java
+│   ├── RunnableExample.java
+│   └── LambdaThreadExample.java
+│
+├── lifecycle
+│   └── ThreadLifeCycleDemo.java
+│
+├── synchronization
+│   ├── SynchronizationExample.java
+│   ├── StaticSynchronization.java
+│   └── DeadlockExample.java
+│
+├── communication
+│   └── WaitNotifyExample.java
+│
+├── executor
+│   └── ExecutorServiceExample.java
+│
+├── advanced
+│   ├── CompletableFutureExample.java
+│   └── VirtualThreadExample.java   // Java 21 feature
+│
+└── faq
+    └── ThreadFAQ.java

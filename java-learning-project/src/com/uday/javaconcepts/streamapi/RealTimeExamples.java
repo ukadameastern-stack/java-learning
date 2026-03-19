@@ -9,10 +9,9 @@ public class RealTimeExamples {
     public static void main(String[] args) {
 
         List<Employee> list = Arrays.asList(
-                new Employee(1, "Uday", 50000),
-                new Employee(2, "Amol", 60000),
-                new Employee(3, "Balaji", 70000),
-                new Employee(4, "Vijay", 80000)
+                new Employee(1, "Uday", "Male", "Pune", 60000, 25, 2011),
+                new Employee(2, "Vijay", "Male", "Barshi", 80000, 20, 2020),
+                new Employee(2, "Archana", "Female", "Pune", 90000, 22, 2022)
         );
 
         double avg =
@@ -21,7 +20,42 @@ public class RealTimeExamples {
                         .average()
                         .orElse(0);
 
-        System.out.println(avg);
+        System.out.println(avg); // 65000.0
+
+
+        list.stream()
+                .filter(e -> e.getSalary() > 70000)
+                .forEach(System.out::println); // Employee [id=4, name=Vijay, salary=80000.0]
+
+        List<String> names = list.stream()
+                .filter(e -> e.getSalary() > 60000)
+                .map(Employee::getName).toList();
+        System.out.println(names); // [Balaji, Vijay]
+
+        String fName = list.stream()
+                .filter(e -> e.getSalary() > 60000)
+                .map(Employee::getName)
+                .findFirst().orElse("");
+        System.out.println(fName); // Balaji
+
+        Long countSalGt60k = list.stream().filter(e -> e.getSalary() > 60000).count();
+        System.out.println(countSalGt60k); // 2
+
+        List<String> emp = list.stream()
+                .filter(e -> e.getSalary() >= 60000 && e.getSalary() < 80000)
+                .map(Employee::getName)
+                .toList();
+
+        System.out.println(emp); // [Amol, Balaji]
+
+        List<Employee> emp2 = list.stream()
+                .filter(e -> e.getSalary() >= 60000 && e.getSalary() < 80000)
+                .toList();
+
+        System.out.println(emp2);
+        // [Employee [id=2, name=Amol, salary=60000.0], Employee [id=3, name=Balaji, salary=70000.0]]
+
+
 
         /*
         REALTIME USE CASE

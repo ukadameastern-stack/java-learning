@@ -70,3 +70,182 @@ Real-World Use Cases:
         REST API transformations
         Database result filtering
         Microservices aggregation logic
+
+-------------------------------------------------
+1. How many operations can we apply on a Stream?
+-------------------------------------------------
+----------------------------
+✔️ Intermediate Operations
+----------------------------
+
+    You can apply 0 to N (multiple) intermediate operations
+
+    They are lazy (nothing executes yet)
+
+        stream()
+           .filter(...)
+           .map(...)
+           .sorted(...)
+           .distinct();   // any number of intermediate ops
+
+----------------------------
+✔️ Terminal Operation
+----------------------------
+
+    Exactly ONE terminal operation is allowed
+
+    It triggers execution
+
+    After this → stream is closed
+
+        stream()
+           .filter(...)
+           .map(...)
+           .toList();   // terminal → stream ends here
+
+----------------------------
+Invalid Example
+----------------------------
+
+    stream().filter(...).toList().forEach(...); // ❌ second terminal op
+
+👉 Because:
+
+    toList() already consumed the stream
+
+    You must create a new stream
+
+---------------------------------
+🔥 Final Rule (Very Important)
+---------------------------------
+
+    | Type         | Count     |
+    | ------------ | --------- |
+    | Intermediate | 0 to many |
+    | Terminal     | Exactly 1 |
+
+-------------------------------------------------
+🧠 2. Types of Intermediate Operations
+-------------------------------------------------
+
+1. Filtering
+
+    filter(Predicate)
+    distinct()
+    limit(n)
+    skip(n)
+    takeWhile()
+    dropWhile()
+
+🔹 2. Mapping (Transformation)
+
+    map()
+    mapToInt()
+    mapToDouble()
+    mapToLong()
+    flatMap()
+    flatMapToInt()
+
+🔹 3. Sorting
+
+    sorted()
+
+🔹 4. Peek (Debugging)
+
+    peek()
+
+    👉 Used for logging/debugging only
+-------------------------------------------------
+🧠 3. Types of Terminal Operations
+-------------------------------------------------
+These produce result or side-effect.
+
+🔹 1. Collection / Conversion
+    toList()
+    collect()
+    toArray()
+
+🔹 2. Iteration
+    forEach()
+    forEachOrdered()
+
+🔹 3. Reduction
+    reduce()
+    count()
+    sum()       // via mapToInt()
+    average()
+    min()
+    max()
+
+🔹 4. Matching (Boolean checks)
+    anyMatch()
+    allMatch()
+    noneMatch()
+
+🔹 5. Finding
+    findFirst()
+    findAny()
+-------------------------------------------------
+🔥 Execution Flow (How Stream Works Internally)
+-------------------------------------------------
+
+    stream()
+     → intermediate ops (lazy, chained)
+     → terminal op (execution starts here)
+
+👉 Example:
+
+    List<String> result = list.stream()
+            .filter(x -> {
+                System.out.println("filter: " + x);
+                return x.length() > 3;
+            })
+            .map(x -> {
+                System.out.println("map: " + x);
+                return x.toUpperCase();
+            })
+            .toList();
+
+💡 Output shows:
+
+    👉 Execution happens only after terminal operation
+
+-------------------------------------------------
+⚠️ Important Rules (Senior-Level)
+-------------------------------------------------
+
+    ❌ Stream cannot be reused
+
+        Stream<String> s = list.stream();
+        s.filter(...);
+        s.toList(); // ❌ IllegalStateException
+
+    ❌ No terminal → No execution
+
+        list.stream().filter(x -> x > 10); // ❌ does nothing
+
+    ⚠️ Order matters
+
+        stream().filter().map().limit()
+
+    👉 Better than:
+
+        stream().limit().filter().map()
+
+-------------------------------------------------
+🚀 Summary
+-------------------------------------------------
+
+    | Feature          | Description               |
+    | ---------------- | ------------------------- |
+    | Intermediate ops | Lazy, chainable, multiple |
+    | Terminal op      | One, triggers execution   |
+    | Execution        | Happens only at terminal  |
+    | Stream reuse     | Not allowed               |
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------

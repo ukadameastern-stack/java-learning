@@ -22,6 +22,16 @@ public class OptionalFilterExample {
                 // name.filter(n -> n.startsWith("v")); // Optional.empty
 
         System.out.println(result);
+
+        Optional<Integer> age = Optional.of(25);
+
+        age.filter(a -> a >= 18)
+                .ifPresent(a -> System.out.println("Age " + a +" eligible for voting"));
+
+        Optional<Integer> age2 = Optional.of(15);
+
+        age2.filter(a -> a >= 18)
+                .ifPresent(a -> System.out.println("Won't print"));
     }
 }
 

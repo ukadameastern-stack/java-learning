@@ -1,0 +1,329 @@
+-------------------------------
+🔥 1. Can a Stream be reused?
+-------------------------------
+
+❓ Question
+    Stream<Integer> stream = List.of(1,2,3).stream();
+
+    stream.filter(x -> x > 1);
+    stream.forEach(System.out::println);
+
+❗ What happens?
+✅ Answer
+
+    ❌ IllegalStateException
+
+    Stream is consumed after first operation
+
+✔️ Fix
+
+    List<Integer> list = List.of(1,2,3);
+
+    list.stream().filter(x -> x > 1).forEach(System.out::println);
+
+-------------------------------
+🔥 2. Why is nothing printed?
+-------------------------------
+
+❓ Question
+    List<Integer> list = List.of(1,2,3,4);
+
+    list.stream()
+        .filter(x -> {
+            System.out.println(x);
+            return x > 2;
+        });
+✅ Answer
+
+    ❌ Nothing executes
+
+    Because no terminal operation
+
+    👉 Streams are lazy
+
+------------------------------------
+🔥 3. Difference: map() vs flatMap()
+------------------------------------
+
+❓ Question
+    List<List<String>> list = List.of(
+        List.of("A", "B"),
+        List.of("C")
+    );
+
+    list.stream()
+        .map(x -> x.stream())
+        .forEach(System.out::println);
+
+✅ Output
+    java.util.stream.ReferencePipeline...
+
+✔️ Correct Approach
+    list.stream()
+        .flatMap(List::stream)
+        .forEach(System.out::println);
+
+💡 Key Concept
+
+    | map   | flatMap  |
+    | ----- | -------- |
+    | wraps | flattens |
+
+------------------------------------
+🔥 4. Order of operations impact?
+------------------------------------
+
+❓ Question
+    list.stream()
+        .limit(2)
+        .filter(x -> x > 5)
+
+vs
+
+    list.stream()
+        .filter(x -> x > 5)
+        .limit(2)
+
+✅ Answer
+
+    Order affects performance
+
+    Always filter early, then limit
+
+-------------------------------------------
+🔥 5. Difference: findFirst() vs findAny()
+-------------------------------------------
+
+✅ Answer
+    Method	    Behavior
+    findFirst()	respects order
+    findAny()	faster in parallel
+
+👉 Interview tip: mention parallel streams
+
+-------------------------------------------
+🔥 6. What happens with duplicate keys?
+-------------------------------------------
+
+❓ Question
+    Collectors.toMap(
+        Employee::getId,
+        Employee::getName
+    )
+✅ Answer
+
+    ❌ Throws IllegalStateException
+
+✔️ Fix
+    .toMap(key, value, (a, b) -> a)
+
+-----------------------------------------------
+🔥 7. Difference: forEach() vs forEachOrdered()
+-----------------------------------------------
+
+✅ Answer
+
+    | Method         | Behavior           |
+    | -------------- | ------------------ |
+    | forEach        | no order guarantee |
+    | forEachOrdered | preserves order    |
+
+👉 Important in parallel streams
+
+--------------------------
+🔥 8. Why is this wrong?
+--------------------------
+
+❓ Question
+    stream.map(x -> {
+        list.add(x);
+        return x;
+    });
+
+✅ Answer
+
+    ❌ Side effects inside stream
+
+    Breaks functional paradigm
+
+👉 Streams should be stateless & side-effect free
+
+-----------------------------
+🔥 9. Parallel Stream Pitfall
+-----------------------------
+❓ Question
+    List<Integer> list = new ArrayList<>();
+
+    IntStream.range(1, 1000)
+        .parallel()
+        .forEach(list::add);
+✅ Answer
+
+    ❌ Not thread-safe
+
+Results unpredictable
+
+✔️ Fix
+    Collections.synchronizedList(new ArrayList<>());
+
+OR better:
+
+    .collect(Collectors.toList());
+
+----------------------------------
+🔥 10. Difference: peek() vs map()
+----------------------------------
+
+✅ Answer
+
+    | Method | Purpose        |
+    | ------ | -------------- |
+    | peek   | debugging      |
+    | map    | transformation |
+
+❗ Trick
+    .peek(x -> x = x * 2) // ❌ no effect
+
+----------------------------------------
+🔥 11. Why Optional.get() is dangerous?
+----------------------------------------
+
+❓ Question
+
+    Optional<String> name = Optional.empty();
+    System.out.println(name.get());
+
+✅ Answer
+
+    ❌ NoSuchElementException
+
+✔️ Best Practice
+    orElse(), orElseThrow(), ifPresent()
+
+----------------------------------------
+🔥 12. Infinite Stream Issue
+----------------------------------------
+
+❓ Question
+
+    Stream.iterate(1, x -> x + 1)
+          .forEach(System.out::println);
+
+✅ Answer
+
+    ❌ Infinite loop
+
+✔️ Fix
+    .limit(10)
+
+----------------------------------------
+🔥 13. reduce() vs collect()
+----------------------------------------
+✅ Answer
+
+    | reduce              | collect           |
+    | ------------------- | ----------------- |
+    | immutable reduction | mutable container |
+    | sum, product        | list, map         |
+
+----------------------------------------
+🔥 14. Why this gives wrong result?
+----------------------------------------
+
+❓ Question
+    int sum = list.stream()
+        .reduce(5, Integer::sum);
+
+✅ Answer
+
+    Initial value 5 is added
+
+    Result = actual sum + 5
+
+----------------------------------------
+🔥 15. Boxing/Unboxing Performance
+----------------------------------------
+❓ Question
+    list.stream().map(x -> x * 2)
+
+Better:
+    list.stream().mapToInt(x -> x * 2)
+
+✅ Answer
+
+    Avoid boxing overhead
+
+------------------------------------------------
+🔥 16. Difference: collect(toList()) vs toList()
+------------------------------------------------
+
+✅ Answer
+
+    | Method              | Behavior       |
+    | ------------------- | -------------- |
+    | collect(toList())   | mutable list   |
+    | toList() (Java 16+) | immutable list |
+
+------------------------------------
+🔥 17. Short-circuiting operations
+------------------------------------
+
+Examples:
+    findFirst()
+    anyMatch()
+    limit()
+
+👉 They stop processing early
+
+--------------------------------
+🔥 18. Why this is inefficient?
+--------------------------------
+
+    list.stream()
+        .sorted()
+        .limit(1)
+
+✅ Answer
+
+    Sorting full list first
+
+✔️ Better:
+    .min()
+
+--------------------------------------
+🔥 19. Stream vs Loop (Interview trap)
+--------------------------------------
+
+✅ Answer
+
+    Streams → readable, declarative
+
+    Loops → faster in tight loops
+
+👉 Senior answer: depends on use-case
+
+--------------------------------
+🔥 20. Can Streams handle null?
+--------------------------------
+
+❗ Answer
+
+    ❌ No (NullPointerException)
+
+✔️ Fix
+
+    Optional.ofNullable(list)
+            .orElse(List.of())
+            .stream()
+
+🚀 Final Interview Strategy
+
+If interviewer asks Streams:
+
+    Talk about lazy evaluation
+
+    Mention stateless operations
+
+    Explain parallel stream pitfalls
+
+    Show real-world use (grouping, mapping)

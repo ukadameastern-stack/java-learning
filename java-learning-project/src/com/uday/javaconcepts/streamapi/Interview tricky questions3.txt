@@ -1,0 +1,179 @@
+--------------------------------
+🔥 What is a Stream Pipeline?
+--------------------------------
+
+👉 A Stream Pipeline is a sequence of operations applied to data:
+
+    source → intermediate operations → terminal operation
+
+🧠 Simple Definition
+
+    A stream pipeline is a chain of operations (intermediate + terminal) that processes data
+    from a source in a declarative and functional style.
+
+📌 Structure of Stream Pipeline
+=================================
+
+1️⃣ Source
+
+    Where data comes from
+
+        List.of(1,2,3).stream()
+
+2️⃣ Intermediate Operations (0 to many)
+
+    Transform data
+
+    Lazy (not executed immediately)
+
+        .filter()
+        .map()
+        .sorted()
+
+3️⃣ Terminal Operation (exactly 1)
+
+    Produces result
+
+    Triggers execution
+
+        .toList()
+        .forEach()
+        .collect()
+
+🔥 Example (Full Pipeline)
+==========================
+
+    List<Integer> result =
+        List.of(1, 2, 3, 4, 5).stream()   // Source
+            .filter(x -> x > 2)           // Intermediate
+            .map(x -> x * 2)              // Intermediate
+            .toList();                    // Terminal
+
+    System.out.println(result);
+
+    /*
+    OUTPUT:
+    [6, 8, 10]
+    */
+
+🧠 How It Works Internally (VERY IMPORTANT)
+
+👉 Stream pipeline works element by element, not step by step.
+
+❗ Example
+
+    List.of(1,2,3,4).stream()
+        .filter(x -> {
+            System.out.println("filter: " + x);
+            return x > 2;
+        })
+        .map(x -> {
+            System.out.println("map: " + x);
+            return x * 2;
+        })
+        .findFirst();
+
+✔️ Output
+    filter: 1
+    filter: 2
+    filter: 3
+    map: 3
+
+🔥 Key Insight
+
+👉 It does NOT process all elements first
+
+Instead:
+
+    1 → filter → discard
+    2 → filter → discard
+    3 → filter → pass → map → stop (findFirst)
+
+👉 This is called:
+
+    Lazy evaluation
+
+    Short-circuiting
+
+
+⚡ Types of Stream Pipelines
+============================
+
+1️⃣ Sequential Pipeline
+
+    list.stream()
+
+    👉 Runs on single thread
+
+2️⃣ Parallel Pipeline
+
+    list.parallelStream()
+
+    👉 Runs on multiple threads
+
+⚠️ Important Rules
+==================
+
+✔️ Rule 1: One terminal operation
+-----------------------------------
+
+    stream().filter().map().toList(); // ✅
+
+❌ Rule 2: Cannot reuse stream
+------------------------------
+
+    Stream s = list.stream();
+    s.filter(...);
+    s.toList(); // ❌ error
+
+❌ Rule 3: No terminal → no execution
+-------------------------------------
+
+    list.stream().filter(x -> x > 2); // ❌ does nothing
+
+-----------------------
+🔥 Real-World Example
+----------------------
+
+🧾 Scenario: Get high-paid IT employees
+
+    List<String> result =
+        employees.stream()
+            .filter(e -> e.getDepartment().equals("IT"))
+            .filter(e -> e.getSalary() > 70000)
+            .map(Employee::getName)
+            .toList();
+
+    System.out.println(result);
+
+    /*
+    OUTPUT:
+    [Uday, Rahul]
+    */
+
+------------------------------------
+🧠 Why Stream Pipeline is Powerful
+------------------------------------
+
+    | Feature     | Benefit   |
+    | ----------- | --------- |
+    | Declarative | readable  |
+    | Lazy        | efficient |
+    | Functional  | less bugs |
+    | Parallel    | scalable  |
+
+--------------------------------------
+🚀 Interview-Ready Answer (Use This)
+--------------------------------------
+
+    “A stream pipeline in Java consists of a source, zero or more intermediate operations,
+     and a terminal operation.
+
+     Intermediate operations are lazy and form a pipeline,
+     and the execution starts only when a terminal operation is invoked.
+
+     The pipeline processes data element-by-element, enabling efficient and optimized computation.”
+
+🔥 One-Line Memory Trick
+
+👉 Source → Transform → Result

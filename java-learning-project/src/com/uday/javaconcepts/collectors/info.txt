@@ -1,0 +1,63 @@
+----------------------------------
+⚡ Key Patterns You MUST Remember
+----------------------------------
+
+⭐ Pattern 1: Basic grouping
+
+    Collectors.groupingBy(keyMapper)
+
+⭐ Pattern 2: grouping + downstream
+
+    Collectors.groupingBy(key, downstreamCollector)
+
+⭐ Pattern 3: mapping inside grouping
+
+    Collectors.mapping(valueMapper, Collectors.toList())
+
+⭐ Pattern 4: multi-level grouping
+
+    groupingBy(..., groupingBy(...))
+
+⚠️ Common Mistakes
+❌ Forgetting downstream collector
+
+    groupingBy(Employee::getDepartment) // gives List<Employee>
+
+👉 Sometimes you want:
+
+    groupingBy(Employee::getDepartment, counting())
+
+❌ Using grouping instead of partitioning
+groupingBy(e -> e.getSalary() > 70000) // works but inefficient
+
+👉 Better:
+
+    partitioningBy(...)
+
+----------------------------------
+🚀 Real Industry Usage
+----------------------------------
+
+Used in:
+
+    Reporting APIs
+
+    Analytics dashboards
+
+    Aggregation services
+
+    Data transformation layers
+
+    Microservices response shaping
+
+----------------------------------
+🔥 Senior-Level Insight
+----------------------------------
+
+👉 Collectors = SQL GROUP BY equivalent in Java
+
+| SQL           | Java Streams                        |
+| ------------- | ----------------------------------- |
+| GROUP BY dept | groupingBy(Employee::getDepartment) |
+| COUNT(*)      | counting()                          |
+| SUM(salary)   | summingDouble()                     |
